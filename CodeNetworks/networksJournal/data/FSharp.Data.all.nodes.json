@@ -1,0 +1,474 @@
+{
+  "nodes": [
+    {
+      "name": "FSharp.Data.HttpRequestBody",
+      "idx": 0,
+      "codeSize": 928
+    },
+    {
+      "name": "FSharp.Data.HttpResponseBody",
+      "idx": 1,
+      "codeSize": 963
+    },
+    {
+      "name": "FSharp.Data.HttpResponse",
+      "idx": 2,
+      "codeSize": 1004
+    },
+    {
+      "name": "FSharp.Data.HttpResponseWithStream",
+      "idx": 3,
+      "codeSize": 523
+    },
+    {
+      "name": "FSharp.Data.Http",
+      "idx": 4,
+      "codeSize": 554
+    },
+    {
+      "name": "FSharp.Data.Runtime.TextConversions",
+      "idx": 5,
+      "codeSize": 667
+    },
+    {
+      "name": "FSharp.Data.Runtime.TextRuntime",
+      "idx": 6,
+      "codeSize": 921
+    },
+    {
+      "name": "FSharp.Data.Runtime.StructuralTypes.InferedProperty",
+      "idx": 7,
+      "codeSize": 313
+    },
+    {
+      "name": "FSharp.Data.Runtime.StructuralTypes.InferedMultiplicity",
+      "idx": 8,
+      "codeSize": 422
+    },
+    {
+      "name": "FSharp.Data.Runtime.StructuralTypes.InferedTypeTag",
+      "idx": 9,
+      "codeSize": 1398
+    },
+    {
+      "name": "FSharp.Data.Runtime.StructuralTypes.InferedType",
+      "idx": 10,
+      "codeSize": 1822
+    },
+    {
+      "name": "FSharp.Data.Runtime.StructuralTypes.Bit0",
+      "idx": 11,
+      "codeSize": 233
+    },
+    {
+      "name": "FSharp.Data.Runtime.StructuralTypes.Bit1",
+      "idx": 12,
+      "codeSize": 233
+    },
+    {
+      "name": "FSharp.Data.Runtime.StructuralTypes.Bit",
+      "idx": 13,
+      "codeSize": 233
+    },
+    {
+      "name": "FSharp.Data.Runtime.StructuralTypes.PrimitiveInferedProperty",
+      "idx": 14,
+      "codeSize": 663
+    },
+    {
+      "name": "FSharp.Data.Runtime.StructuralTypes.TypeWrapper",
+      "idx": 15,
+      "codeSize": 422
+    },
+    {
+      "name": "FSharp.Data.JsonSaveOptions",
+      "idx": 16,
+      "codeSize": 0
+    },
+    {
+      "name": "FSharp.Data.JsonValue",
+      "idx": 17,
+      "codeSize": 1207
+    },
+    {
+      "name": "FSharp.Data.JsonParser",
+      "idx": 18,
+      "codeSize": 2989
+    },
+    {
+      "name": "FSharp.Data.Runtime.JsonConversions",
+      "idx": 19,
+      "codeSize": 66
+    },
+    {
+      "name": "FSharp.Data.JsonExtensions",
+      "idx": 20,
+      "codeSize": 1091
+    },
+    {
+      "name": "FSharp.Data.Runtime.IJsonDocument",
+      "idx": 21,
+      "codeSize": 0
+    },
+    {
+      "name": "FSharp.Data.Runtime.JsonDocument",
+      "idx": 22,
+      "codeSize": 806
+    },
+    {
+      "name": "FSharp.Data.Runtime.JsonValueOptionAndPath",
+      "idx": 23,
+      "codeSize": 463
+    },
+    {
+      "name": "FSharp.Data.Runtime.JsonRuntime",
+      "idx": 24,
+      "codeSize": 2722
+    },
+    {
+      "name": "FSharp.Data.Runtime.XmlElement",
+      "idx": 25,
+      "codeSize": 437
+    },
+    {
+      "name": "FSharp.Data.Runtime.XmlRuntime",
+      "idx": 26,
+      "codeSize": 1179
+    },
+    {
+      "name": "FSharp.Data.Runtime.CsvFile`1",
+      "idx": 27,
+      "codeSize": 1696
+    },
+    {
+      "name": "FSharp.Data.CsvRow",
+      "idx": 28,
+      "codeSize": 110
+    },
+    {
+      "name": "FSharp.Data.CsvFile",
+      "idx": 29,
+      "codeSize": 436
+    },
+    {
+      "name": "FSharp.Data.CsvExtensions",
+      "idx": 30,
+      "codeSize": 512
+    },
+    {
+      "name": "FSharp.Data.Runtime.WorldBank.Indicator",
+      "idx": 31,
+      "codeSize": 400
+    },
+    {
+      "name": "FSharp.Data.Runtime.WorldBank.IndicatorDescription",
+      "idx": 32,
+      "codeSize": 155
+    },
+    {
+      "name": "FSharp.Data.Runtime.WorldBank.IIndicators",
+      "idx": 33,
+      "codeSize": 0
+    },
+    {
+      "name": "FSharp.Data.Runtime.WorldBank.Indicators",
+      "idx": 34,
+      "codeSize": 114
+    },
+    {
+      "name": "FSharp.Data.Runtime.WorldBank.IIndicatorsDescriptions",
+      "idx": 35,
+      "codeSize": 0
+    },
+    {
+      "name": "FSharp.Data.Runtime.WorldBank.IndicatorsDescriptions",
+      "idx": 36,
+      "codeSize": 93
+    },
+    {
+      "name": "FSharp.Data.Runtime.WorldBank.ICountry",
+      "idx": 37,
+      "codeSize": 0
+    },
+    {
+      "name": "FSharp.Data.Runtime.WorldBank.Country",
+      "idx": 38,
+      "codeSize": 171
+    },
+    {
+      "name": "FSharp.Data.Runtime.WorldBank.ICountryCollection",
+      "idx": 39,
+      "codeSize": 0
+    },
+    {
+      "name": "FSharp.Data.Runtime.WorldBank.CountryCollection`1",
+      "idx": 40,
+      "codeSize": 92
+    },
+    {
+      "name": "FSharp.Data.Runtime.WorldBank.IRegion",
+      "idx": 41,
+      "codeSize": 0
+    },
+    {
+      "name": "FSharp.Data.Runtime.WorldBank.Region",
+      "idx": 42,
+      "codeSize": 120
+    },
+    {
+      "name": "FSharp.Data.Runtime.WorldBank.IRegionCollection",
+      "idx": 43,
+      "codeSize": 0
+    },
+    {
+      "name": "FSharp.Data.Runtime.WorldBank.RegionCollection`1",
+      "idx": 44,
+      "codeSize": 91
+    },
+    {
+      "name": "FSharp.Data.Runtime.WorldBank.ITopic",
+      "idx": 45,
+      "codeSize": 0
+    },
+    {
+      "name": "FSharp.Data.Runtime.WorldBank.Topic",
+      "idx": 46,
+      "codeSize": 135
+    },
+    {
+      "name": "FSharp.Data.Runtime.WorldBank.ITopicCollection",
+      "idx": 47,
+      "codeSize": 0
+    },
+    {
+      "name": "FSharp.Data.Runtime.WorldBank.TopicCollection`1",
+      "idx": 48,
+      "codeSize": 90
+    },
+    {
+      "name": "FSharp.Data.Runtime.WorldBank.IWorldBankData",
+      "idx": 49,
+      "codeSize": 0
+    },
+    {
+      "name": "FSharp.Data.Runtime.WorldBank.WorldBankData",
+      "idx": 50,
+      "codeSize": 139
+    },
+    {
+      "name": "FSharp.Data.Runtime.Freebase.FreebasePropertyBag",
+      "idx": 51,
+      "codeSize": 129
+    },
+    {
+      "name": "FSharp.Data.Runtime.Freebase.FreebaseDataConnection",
+      "idx": 52,
+      "codeSize": 1082
+    },
+    {
+      "name": "FSharp.Data.Runtime.Freebase.IFreebaseObject",
+      "idx": 53,
+      "codeSize": 0
+    },
+    {
+      "name": "FSharp.Data.Runtime.Freebase.FreebaseObject",
+      "idx": 54,
+      "codeSize": 1678
+    },
+    {
+      "name": "FSharp.Data.Runtime.Freebase.IFreebaseDomain",
+      "idx": 55,
+      "codeSize": 0
+    },
+    {
+      "name": "FSharp.Data.Runtime.Freebase.FreebaseDomain",
+      "idx": 56,
+      "codeSize": 65
+    },
+    {
+      "name": "FSharp.Data.Runtime.Freebase.IFreebaseDomainCategory",
+      "idx": 57,
+      "codeSize": 0
+    },
+    {
+      "name": "FSharp.Data.Runtime.Freebase.FreebaseDomainCategory",
+      "idx": 58,
+      "codeSize": 46
+    },
+    {
+      "name": "FSharp.Data.Runtime.Freebase.IFreebaseIndividuals",
+      "idx": 59,
+      "codeSize": 0
+    },
+    {
+      "name": "FSharp.Data.Runtime.Freebase.FreebaseIndividuals",
+      "idx": 60,
+      "codeSize": 102
+    },
+    {
+      "name": "FSharp.Data.Runtime.Freebase.FreebaseSendingRequestArgs",
+      "idx": 61,
+      "codeSize": 25
+    },
+    {
+      "name": "FSharp.Data.Runtime.Freebase.FreebaseSendingQueryArgs",
+      "idx": 62,
+      "codeSize": 25
+    },
+    {
+      "name": "FSharp.Data.Runtime.Freebase.IFreebaseDataContext",
+      "idx": 63,
+      "codeSize": 0
+    },
+    {
+      "name": "FSharp.Data.Runtime.Freebase.FreebaseDataContext",
+      "idx": 64,
+      "codeSize": 105
+    },
+    {
+      "name": "FSharp.Data.Runtime.Freebase.FreebaseDataContextSettings",
+      "idx": 65,
+      "codeSize": 263
+    },
+    {
+      "name": "System.AssemblyVersionInformation",
+      "idx": 66,
+      "codeSize": 0
+    },
+    {
+      "name": "FSharp.Data.FreebaseOperators",
+      "idx": 67,
+      "codeSize": 212
+    },
+    {
+      "name": "FSharp.Data.Runtime.Freebase.QueryImplementation",
+      "idx": 68,
+      "codeSize": 15940
+    },
+    {
+      "name": "FSharp.Data.Runtime.Freebase.RuntimeConversion",
+      "idx": 69,
+      "codeSize": 873
+    },
+    {
+      "name": "FSharp.Data.Runtime.Freebase.FreebaseSchema",
+      "idx": 70,
+      "codeSize": 32951
+    },
+    {
+      "name": "FSharp.Data.Runtime.Freebase.FreebaseRequests",
+      "idx": 71,
+      "codeSize": 4327
+    },
+    {
+      "name": "FSharp.Data.Runtime.WorldBank.Implementation",
+      "idx": 72,
+      "codeSize": 11885
+    },
+    {
+      "name": "FSharp.Data.Runtime.CsvInference",
+      "idx": 73,
+      "codeSize": 7272
+    },
+    {
+      "name": "FSharp.Data.CsvExtensionsModule",
+      "idx": 74,
+      "codeSize": 25
+    },
+    {
+      "name": "FSharp.Data.Runtime.CsvHelpers",
+      "idx": 75,
+      "codeSize": 3183
+    },
+    {
+      "name": "FSharp.Data.Runtime.CsvReader",
+      "idx": 76,
+      "codeSize": 943
+    },
+    {
+      "name": "FSharp.Data.XElementExtensions",
+      "idx": 77,
+      "codeSize": 310
+    },
+    {
+      "name": "FSharp.Data.JsonExtensionsModule",
+      "idx": 78,
+      "codeSize": 40
+    },
+    {
+      "name": "FSharp.Data.JsonValueModule",
+      "idx": 79,
+      "codeSize": 64
+    },
+    {
+      "name": "FSharp.Data.Runtime.StructuralInference",
+      "idx": 80,
+      "codeSize": 6308
+    },
+    {
+      "name": "FSharp.Data.Runtime.NameUtils",
+      "idx": 81,
+      "codeSize": 3057
+    },
+    {
+      "name": "FSharp.Data.Runtime.Pluralizer",
+      "idx": 82,
+      "codeSize": 4540
+    },
+    {
+      "name": "FSharp.Data.Runtime.Helpers",
+      "idx": 83,
+      "codeSize": 116
+    },
+    {
+      "name": "FSharp.Data.Runtime.HttpUtils",
+      "idx": 84,
+      "codeSize": 1020
+    },
+    {
+      "name": "FSharp.Data.Runtime.Caching",
+      "idx": 85,
+      "codeSize": 592
+    },
+    {
+      "name": "FSharp.Data.Runtime.IO",
+      "idx": 86,
+      "codeSize": 3931
+    },
+    {
+      "name": "FSharp.Data.Helpers",
+      "idx": 87,
+      "codeSize": 4939
+    },
+    {
+      "name": "FSharp.Data.HttpEncodings",
+      "idx": 88,
+      "codeSize": 12
+    },
+    {
+      "name": "FSharp.Data.HttpContentTypes",
+      "idx": 89,
+      "codeSize": 13
+    },
+    {
+      "name": "FSharp.Data.HttpResponseHeaders",
+      "idx": 90,
+      "codeSize": 13
+    },
+    {
+      "name": "FSharp.Data.HttpRequestHeaders",
+      "idx": 91,
+      "codeSize": 764
+    },
+    {
+      "name": "FSharp.Data.HttpMethod",
+      "idx": 92,
+      "codeSize": 56
+    },
+    {
+      "name": "FSharp.Data.Runtime.UriUtils",
+      "idx": 93,
+      "codeSize": 1482
+    }
+  ]
+}
