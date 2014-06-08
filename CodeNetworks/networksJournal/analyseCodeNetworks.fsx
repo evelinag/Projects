@@ -18,6 +18,9 @@ of compiled .NET assemblies
 used for motif analysis and for some plotting.
 
 You need to have R installed on your machine, especially to run the motif analysis.
+
+[Link to the project code on github]
+
 Required NuGet packages including Cecil will download 
 when you build this project in Visual Studio.
 
