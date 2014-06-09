@@ -43,7 +43,7 @@ let fsProjects =
       ("FSharp.Compiler.Service", @"FSharp.Compiler.Service\lib\net40\FSharp.Compiler.Service.dll");
       ("FSharp.Core", @"FSharp.Core\lib\FSharp.Core.dll");
       ("FSharp.Data", @"FSharp.Data\lib\net40\FSharp.Data.dll");
-      ("FSharp.Data.Twitter", @"FSharp.Data.Toolbox.Twitter\lib\net40\FSharp.Data.Toolbox.Twitter.dll");
+      ("FSharp.Data.Toolbox.Twitter", @"FSharp.Data.Toolbox.Twitter\lib\net40\FSharp.Data.Toolbox.Twitter.dll");
       ("FSharpx.Core", @"FSharpx.Core\lib\40\FSharpx.Core.dll");
       ("FsPowerPack.Core.Community", @"FSPowerPack.Core.Community\Lib\Net40\FSharp.PowerPack.dll");
       ("FsSql", @"FsSql\lib\FsSql.dll");

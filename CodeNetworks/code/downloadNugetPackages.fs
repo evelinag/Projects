@@ -117,10 +117,16 @@ let findAssemblies (dir:DirectoryInfo) =
 
 let downloadPackage dir name =
     printfn "Downloading %s..." name
-    let packageDir =
-        getPackage name (Some dir)
-        |> Async.RunSynchronously
+    if name = "Storm" then
+        printfn "Storm has to be downloaded manually from CodePlex."
+    else if name.Contains "WebSharper." then 
+        // WebSharper has multiple dlls, it needs to be downloaded just once
+        printfn "Skipping %s" name
+    else
+        let packageDir =
+            getPackage name (Some dir)
+            |> Async.RunSynchronously
 
-    findAssemblies packageDir
-    |> Seq.iter (fun f -> printfn "%s" f.FullName)
+        findAssemblies packageDir
+        |> Seq.iter (fun f -> printfn "%s" f.FullName)
 

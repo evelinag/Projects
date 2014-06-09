@@ -27,6 +27,7 @@ Directory.SetCurrentDirectory(__SOURCE_DIRECTORY__)
 // Names of projects to download are listed in `projects.fs`
 csProjectNames |> Array.iter (FsSnip.NuGet.downloadPackage csDir)
 fsProjectNames |> Array.iter (FsSnip.NuGet.downloadPackage fsDir)
+    // Storm has to be downloaded separately from CodePlex
 
 // ===================================================
 // Extract networks 
