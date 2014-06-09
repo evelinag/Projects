@@ -8,7 +8,7 @@ Analysing code dependency networks
 
 This [FsLab Journal](http://visualstudiogallery.msdn.microsoft.com/45373b36-2a4c-4b6a-b427-93c7a8effddb)
 shows how to analyse code dependency networks from a compiled
-.NET assembly.  
+.NET assembly. It is a supplementary material to my blog post on [Comparing F# and C# with dependency networks](http://evelinag.com/blog/2014/06-09-comparing-dependency-networks/index.html).
 
 Requirements:
 
@@ -18,8 +18,8 @@ of compiled .NET assemblies
 used for motif analysis and for some plotting.
 
 You need to have R installed on your machine, especially to run the motif analysis.
-
-[Link to the project code on github]
+Full source code used in this FsLab journal is available from my 
+[GitHub page](https://github.com/evelinag/Projects/tree/master/CodeNetworks).
 
 Required NuGet packages including Cecil will download 
 when you build this project in Visual Studio.
@@ -33,7 +33,7 @@ of this FsLab Journal Project.
 let projectAssembly = __SOURCE_DIRECTORY__ + @"\packages\FSharp.Data.2.0.8\lib\net40\FSharp.Data.dll"
 
 (**
-First step is to extract dependecny network from the assembly. Nodes in this 
+First step is to extract dependency network from the assembly. Nodes in this 
 network are formed by top-level classes or modules. Links represent 
 dependencies. 
 
@@ -53,9 +53,8 @@ System.IO.Directory.SetCurrentDirectory(__SOURCE_DIRECTORY__ + "/packages/FSharp
 #r @"packages\Mono.Cecil.0.9.5.4\lib\net40\Mono.Cecil.dll"
 #r @"packages\Mono.Cecil.0.9.5.4\lib\net40\Mono.Cecil.Rocks.dll"
 #r @"packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.dll"
-#load "type-dependency-graph.fs"
 (*[/omit]*)
-
+#load "type-dependency-graph.fs"
 #load "dependency-network.fs"
 
 let outputDir = __SOURCE_DIRECTORY__ + "\\data\\"

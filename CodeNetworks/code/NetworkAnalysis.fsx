@@ -135,7 +135,7 @@ plotMotif 3 (fst fs3mostCommonMotifs.[0])
 // Language-specific motifs
 let onlyCs3motifs, onlyFs3motifs = motifOccurences cs3motifs fs3motifs
 Array.iter (fun (motif, count) -> 
-    printfn "Motif of isomorphism class [%d] occurs %d times exclusively in C# projects." motif count ) 
+    printfn "Motif of isomorphism class [%d] occurs in %d C# projects." motif count ) 
     onlyCs3motifs 
 
 let onlyCs4motifs, onlyFs4motifs = motifOccurences cs4motifs fs4motifs
