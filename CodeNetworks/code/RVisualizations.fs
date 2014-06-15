@@ -57,6 +57,43 @@ let plotNetworkSizes (csSizes:(int*int)[]) (fsSizes:(int*int)[]) =
           "bty", box "n";
         ]) |> ignore
 
+let plotNetworkSizesLinear (csSizes:(int*int)[]) (fsSizes:(int*int)[]) = 
+    let csNodeCounts, csLinkCounts = Array.unzip csSizes
+    let fsNodeCounts, fsLinkCounts = Array.unzip fsSizes
+
+    // C# values
+    R.plot(namedParams [
+            "x", box csNodeCounts;
+            "y", box csLinkCounts;
+            "bg", box colours.[0];
+            "pch", box 21;
+            "cex", box 1.7;
+            "xlab", box "Number of nodes";
+            "ylab", box "Number of links";
+            "main", box "Network size";
+            "xlim", box [|3.0; 600.0|];
+            "ylim", box [|1.0; 2000.0|]
+            ]) |> ignore
+    // F# values
+    R.points(
+        namedParams [
+            "x", box fsNodeCounts;
+            "y", box fsLinkCounts;
+            "log", box "xy"
+            "bg", box colours.[1];
+            "pch", box 22;
+            "cex", box 1.7;
+            ]) |> ignore
+    // legend
+    R.legend( namedParams
+        [ "x", box "right";
+          "legend", box [|"C#"; "F#"|];
+          "col", box coloursRList ;
+          "pch", box [|16; 15|];
+          "cex", box 1.3;
+          "bty", box "n";
+        ]) |> ignore
+
 /// Compare diameters with box plots
 let plotDiameters (csDiameters:float[]) (fsDiameters:float[]) = 
     let x = 

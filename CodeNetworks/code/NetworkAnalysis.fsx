@@ -55,8 +55,13 @@ allProjectNames
 let csSizes = csProjectNames |> Array.map networkSize
 let fsSizes = fsProjectNames |> Array.map networkSize
 plotNetworkSizes csSizes fsSizes
+plotNetworkSizesLinear csSizes fsSizes
 
-// Load networks as in a format suitable for function in R igraph package
+let allSizes = Array.append csSizes fsSizes
+let allSizesCsv = Array.map (fun (n1,n2) -> string n1 + "," + string n2) allSizes
+File.WriteAllLines("networks/networkSizes.csv",allSizesCsv)
+
+// Load networks in a format suitable for function in R igraph package
 let csNetworks = Array.map projectNetwork csProjectNames
 let fsNetworks = Array.map projectNetwork fsProjectNames
 
@@ -147,3 +152,13 @@ exportMotifCounts allProjectNames
     (Array.append csNetworks fsNetworks) 3 "data//motifs_3nodes.csv"
 exportMotifCounts allProjectNames 
     (Array.append csNetworks fsNetworks) 4 "data//motifs_4nodes.csv"
+
+
+// -------------------------------------------------
+// Cliques in the graph
+open RProvider.igraph
+let maxClique = R.maximal_cliques(csNetworks.[0])
+let csCliques = csNetworks |> Array.map (R.largest_cliques) 
+let fsCliques = fsNetworks |> Array.map (R.largest_cliques)
+
+
