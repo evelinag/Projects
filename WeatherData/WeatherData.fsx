@@ -316,4 +316,8 @@ The two methods generally yield different resulting models.
 Metropolis-Hastings takes into account our prior beliefs about hyperparameter values
 and it also samples from the true posterior. Gradient descent finds only a single local
 maximum of the nonlinear log likelihood function.
+
+You can download the ``fsx`` source file for weather analysis from 
+[GitHub](https://github.com/evelinag/Projects/tree/master/WeatherData).
+
 *)
