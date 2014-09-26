@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Twitter", "Twitter.fsproj", "{82DD7EA0-B153-465B-9732-2AF51DD79CDE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "json", "json", "{F3FAA2ED-7D92-4CA2-910F-E59A19A65EB9}"
+	ProjectSection(SolutionItems) = preProject
+		json\bearer_token.json = json\bearer_token.json
+		json\friendship_show.json = json\friendship_show.json
+		json\idslist.json = json\idslist.json
+		json\search_tweets.json = json\search_tweets.json
+		json\stream.json = json\stream.json
+		json\timeline.json = json\timeline.json
+		json\users_lookup.json = json\users_lookup.json
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{82DD7EA0-B153-465B-9732-2AF51DD79CDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82DD7EA0-B153-465B-9732-2AF51DD79CDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82DD7EA0-B153-465B-9732-2AF51DD79CDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82DD7EA0-B153-465B-9732-2AF51DD79CDE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -46,6 +46,14 @@ let data =
         18.16; 20.58; 17.46; 19.0; 19.57; 19.84; 17.94; 17.53; 18.31; 19.0;
         18.39; 18.81; 16.0; 18.14; 18.24|];}  |]
 
+open FSharp.Charting
+data
+|> Array.map (fun ds -> 
+    let ts = Array.zip (ds.Locations) (ds.Observations)
+    Chart.Point(ts, MarkerSize=10))
+|> Chart.Combine
+|> Chart.WithYAxis(Min=10.0, Max=25.0, Title="Temperature", TitleFontSize=14.0)
+|> Chart.WithXAxis(Title="Days", TitleFontSize=14.0)
 
 (**
 

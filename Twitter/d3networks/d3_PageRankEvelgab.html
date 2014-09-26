@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+<style>
+
+.node {
+  stroke: #fff;
+  stroke-width: 1.5px;
+  opacity: 0.5;
+}
+
+.link {
+  stroke: #999;
+  stroke-opacity: .6;
+}
+
+</style>
+
+</head>
+<body>
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+
+    var width = 2000,
+        height = 1200;
+
+    var color = d3.scale.category20();
+
+    var force = d3.layout.force()
+        .charge(-1000)
+        .linkDistance(100)
+        .size([width, height])
+        .gravity(1.0);
+
+    var svg = d3.select("body").append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+    //d3.json("fsharporgNodes.json", function (error, graphNodes) {
+    d3.json("evelgabpageRankNodes.json", function (error, graphNodes) {
+        d3.json("evelgabLinks.json", function (error, graphLinks) {
+            force
+                .nodes(graphNodes.nodes)
+                .links(graphLinks.links)
+                .start();
+
+            var link = svg.selectAll(".link")
+                .data(graphLinks.links)
+              .enter().append("line")
+                .attr("class", "link")
+                .style("stroke-width", function (d) { return Math.sqrt(d.value); });
+
+            var node = svg.selectAll(".node")
+                .data(graphNodes.nodes)
+              .enter().append("circle")
+                .attr("class", "node")
+                .attr("r", 5)
+                .style("fill", function (d) { return color(d.group); })
+                .call(force.drag);
+
+            node.attr("r", function (d) { return Math.sqrt(d.r) * 100 + 3; })
+
+            node.append("title")
+                .text(function (d) { return d.name; });
+
+            force.on("tick", function () {
+                var q = d3.geom.quadtree(graphNodes.nodes),
+                i = 0,
+                n = graphNodes.nodes.length;
+
+                link.attr("x1", function (d) { return d.source.x; })
+                    .attr("y1", function (d) { return d.source.y; })
+                    .attr("x2", function (d) { return d.target.x; })
+                    .attr("y2", function (d) { return d.target.y; });
+
+                node.attr("cx", function (d) { return d.x; })
+                    .attr("cy", function (d) { return d.y; });
+            });
+
+        });
+    });
+
+</script>
+</body>
+</html>
