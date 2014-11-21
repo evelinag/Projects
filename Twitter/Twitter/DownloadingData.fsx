@@ -1,5 +1,5 @@
 ﻿
-#r @"./packages/FSharp.Data.2.0.15/lib/net40/FSharp.Data.dll"
+#r @"./packages/FSharp.Data.2.0.9/lib/net40/FSharp.Data.dll"
 #r @"./packages/FSharp.Data.Toolbox.Twitter.0.2.1/lib/net40/FSharp.Data.Toolbox.Twitter.dll"
 
 open System
@@ -30,6 +30,52 @@ let t = twitter.Users.Lookup(["pigworker"])
         |> Array.ofSeq
 
 t.[0].FriendsCount
+
+// Looking at interactions
+// ==================================================
+
+let rec searchTweets hashtag lastTweetId remainingRequests tweets =
+    printfn "%d" remainingRequests
+    if remainingRequests = 0 then tweets else
+    let ts = 
+        match lastTweetId with
+        | None -> 
+            twitter.Search.Tweets(hashtag, count=100)
+        | Some(id) -> 
+            twitter.Search.Tweets(hashtag, maxId = id, count=100)
+    if ts.Statuses.Length = 0 then tweets
+    else 
+        let lastId = ts.Statuses.[ts.Statuses.Length-1].Id |> Some
+        searchTweets hashtag lastId (remainingRequests-1) 
+            (Array.append tweets ts.Statuses)
+        
+
+let hashtag = "#fsharp"
+let tweets = searchTweets hashtag None 100 [||]
+
+printfn "Number of downloaded tweets: %d" 
+    tweets.Length
+
+// interactions
+let interactions = 
+    [| for tweet in tweets -> 
+        tweet.RetweetCount, tweet.FavoriteCount |]
+    |> Array.filter (fun (r,f) -> r>0 || f>0)
+
+// interaction rate
+let interactionRate = 
+    float interactions.Length / float tweets.Length
+
+// Correlations
+open FSharp.Charting
+Chart.Point(interactions, XTitle="Retweeted", YTitle="Favourited")
+
+open MathNet.Numerics.Statistics
+Array.map (fun (x,y) -> float x, float y) interactions
+|> Array.unzip
+|> Correlation.Pearson
+
+
 
 // Downloading the data
 // ==================================================

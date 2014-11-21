@@ -23,7 +23,7 @@ let twitterHandle = "evelgab"
 let nodeFile = @"C:\Temp\Twitter\networks\" + twitterHandle + "Nodes.json"
 let linkFile = @"C:\Temp\Twitter\networks\" + twitterHandle + "Links.json"
 
-type Users = JsonProvider<"C:\\Users\\Public\\Documents\\Projects\\SocialNetworkAnalysis\\data\\fsharporgNodes.json">
+type Users = JsonProvider<"{\"nodes\": [{\"name\": \"screenname\",\"id\": 123245623993}]}">
 let userNames = Users.Load nodeFile
 userNames.Nodes.Length
 
@@ -31,7 +31,7 @@ userNames.Nodes.Length
 userNames.Nodes.[0].Name
 
 
-type Connections = JsonProvider<"C:\\Users\\Public\\Documents\\Projects\\SocialNetworkAnalysis\\data\\fsharporgLinks.json">
+type Connections = JsonProvider<"{\"links\":[{\"source\": 3,\"target\": 765}]}">
 let userLinks = Connections.Load linkFile
 
 // Helper functions for Twitter IDs
