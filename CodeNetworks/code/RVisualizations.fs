@@ -138,16 +138,19 @@ let plotIsolatedNodes (csIsolatedPerc:float[]) (fsIsolatedPerc:float[]) =
     |> ignore
 
 /// Compare motif profiles of C# and F# projects
-let plotMotifComparison (csMotifsAverage:(int*float)[]) (fsMotifAverage:(int*float)[]) = 
+let plotMotifComparison (csMotifsAverage:(int*float)seq) (fsMotifAverage:(int*float)seq) = 
     // Create Array2D for motif profiles to pass into R
-    let n = csMotifsAverage.Length
+    let cs = Array.ofSeq csMotifsAverage
+    let fs = Array.ofSeq fsMotifAverage
+
+    let n = cs.Length
     let allMotifs = 
         Array2D.init 2 n (fun language motif ->
             // first row = C#, second row = F#
             if language = 0 then
-                snd csMotifsAverage.[motif]
+                snd cs.[motif]
             else
-                snd fsMotifAverage.[motif])
+                snd fs.[motif])
     namedParams [
         "height", box allMotifs;
         "beside", box true;

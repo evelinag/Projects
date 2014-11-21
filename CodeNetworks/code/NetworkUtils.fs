@@ -16,8 +16,9 @@ open RProvider
 open RProvider.``base``
 open RProvider.igraph
 
-type Nodes = JsonProvider<"..\\..\\networks\\Antlr.all.nodes.json">
-type Links = JsonProvider<"..\\..\\networks\\Antlr.all.links.json">
+// It might be necessary to change locations of sample files
+type Nodes = JsonProvider<"{\"nodes\":[{\"name\":\"Thing.Runtime.IStuff\",\"idx\": 1,\"codeSize\":157},{\"name\": \"Antlr.Runtime.ICharStream\",\"idx\": 5,\"codeSize\":10}]}">
+type Links = JsonProvider<"{\"links\":[{\"source\": 0,\"target\":1},{\"source\":18,\"target\":2}]}">
 
 /// Reads project network from JSON format
 let loadNetworkFromJSON dataDir project = 

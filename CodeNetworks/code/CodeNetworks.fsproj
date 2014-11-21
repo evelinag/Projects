@@ -63,6 +63,7 @@
     <None Include="NetworkAnalysis.fsx" />
     <None Include="packages.config" />
     <None Include="app.config" />
+    <None Include="JsonNET-FSharpData.fsx" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Deedle">
