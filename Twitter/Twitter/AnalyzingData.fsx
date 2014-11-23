@@ -19,9 +19,9 @@ open System.Collections.Generic
 // Loading JSON data with type providers
 // ===================================================
 
-let twitterHandle = "evelgab"
-let nodeFile = @"C:\Temp\Twitter\networks\" + twitterHandle + "Nodes.json"
-let linkFile = @"C:\Temp\Twitter\networks\" + twitterHandle + "Links.json"
+let twitterHandle = "fsharporg"
+let nodeFile = @"C:\Temp\Twitter\networks\" + twitterHandle + "Nodes_22-11-2014.json"
+let linkFile = @"C:\Temp\Twitter\networks\" + twitterHandle + "Links_22-11-2014.json"
 
 type Users = JsonProvider<"{\"nodes\": [{\"name\": \"screenname\",\"id\": 123245623993}]}">
 let userNames = Users.Load nodeFile
@@ -131,16 +131,17 @@ let topUsers count (ranking:float seq) =
     ranking
     |> Seq.mapi (fun i x -> (i,x))
     |> Seq.sortBy (fun (i,x) -> - x)
-    |> Seq.take count
-    |> Seq.map (fun (i,x) -> 
+    |> Seq.choose (fun (i,x) -> 
         let id, name = idxToIdName i
-        (id, name, x))
+        if name <> "*****" then Some(id, name, x)
+        else None)
+    |> Seq.take count
 
 // Get a list of people that have most followers
-outdegrees
+indegrees
 |> topUsers 10
 |> Seq.iteri (fun i (id, name, value) ->
-    printfn "%d. %s has outdegree %.0f" (i+1) name value)    
+    printfn "%d. %s has indegree %.0f" (i+1) name value)    
 
 // Transition matrix
 // ===================================================
@@ -218,7 +219,7 @@ let pageRankValues = pageRank maxIter transitionMatrix startPageRank
 pageRankValues
 |> topUsers 100
 |> Seq.iteri (fun i (id, name, value) ->
-    printfn "%d. %s has PageRank %f" (i+1) name value)    
+    printfn "%d. @%s has PageRank %f" (i+1) name value)    
 
 // Plot PageRank distribution
 R.hist(pageRankValues,100)

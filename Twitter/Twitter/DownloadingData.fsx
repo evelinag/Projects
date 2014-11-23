@@ -1,6 +1,7 @@
 ﻿
 #r @"./packages/FSharp.Data.2.0.9/lib/net40/FSharp.Data.dll"
 #r @"./packages/FSharp.Data.Toolbox.Twitter.0.2.1/lib/net40/FSharp.Data.Toolbox.Twitter.dll"
+#load @"packages\FsLab.0.0.19\FsLab.fsx"
 
 open System
 open System.IO
@@ -103,13 +104,13 @@ let twitterNodes =
         Thread.Sleep(5000)
         let nodeInfo = 
             try 
-                twitter.Users.Lookup([id])
+                let n = twitter.Users.Lookup([id]) |> Seq.exactlyOne
+                n.Id, n.ScreenName
             with _ -> 
                 // recently cancelled accounts etc.
                 printfn "Unable to access ID %d" id
-                [||]      
-        yield! nodeInfo |]
-    |> Array.map (fun node -> node.Id, node.ScreenName)
+                id, "Inaccessible ID"
+        yield nodeInfo |]
     
 // Twitter connections between users
 // ==================================================
@@ -132,7 +133,7 @@ let twitterConnections (ids:int64 seq) =
                 |> Array.filter isInNetwork 
             with _ -> 
                 // accounts with hidden list of friends and followers etc
-                printfn "Unable to access ID %i" srcId
+                printfn "*****" srcId
                 [||]      
         // return source and target
         yield! connections |> Seq.map (fun tgtId -> srcId, tgtId)|]
