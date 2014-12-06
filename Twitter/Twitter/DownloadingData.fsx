@@ -11,8 +11,6 @@ open FSharp.Data
 open FSharp.Data.Toolbox.Twitter
 
 
-let user = "evelgab"
-
 // Connecting to Twitter
 // ==================================================
 
@@ -20,17 +18,18 @@ let user = "evelgab"
 let key = "CoqmPIJ553Tuwe2eQgfKA"
 let secret = "dhaad3d7DreAFBPawEIbzesS1F232FnDsuWWwRTUg"
 
-// Full authentication
-let connector = Twitter.Authenticate(key, secret)
-// A window appers for Twitter sign-in
-// After authentication, a PIN should appear
-// Use the PIN as an argument for the Connect function
-let twitter = connector.Connect("2525211")
+// a) Full authentication
+//      A window appers for Twitter sign-in
+//      After authentication, a PIN should appear
+//      Use the PIN as an argument for the Connect function
+// let connector = Twitter.Authenticate(key, secret)
+// let twitter = connector.Connect("2525211")
 
-let t = twitter.Users.Lookup(["pigworker"])
-        |> Array.ofSeq
+let twitter = Twitter.AuthenticateAppOnly(key, secret)
 
-t.[0].FriendsCount
+//
+let t = twitter.Users.Lookup(["evelgab"]) |> Seq.exactlyOne
+t.CreatedAt
 
 // Looking at interactions
 // ==================================================
@@ -57,39 +56,43 @@ let tweets = searchTweets hashtag None 100 [||]
 printfn "Number of downloaded tweets: %d" 
     tweets.Length
 
-// interactions
-let interactions = 
-    [| for tweet in tweets -> 
-        tweet.RetweetCount, tweet.FavoriteCount |]
-    |> Array.filter (fun (r,f) -> r>0 || f>0)
+// Interactions
+let interactions =
+    tweets
+    |> Array.map (fun t -> 
+        t.RetweetCount, t.FavoriteCount)
+    |> Array.filter (fun (rt, f) -> rt > 0 || f > 0)
 
-// interaction rate
-let interactionRate = 
-    float interactions.Length / float tweets.Length
+// Probability of interaction
+let probInteraction = 
+    (float interactions.Length)/(float tweets.Length)
 
 // Correlations
-open FSharp.Charting
-Chart.Point(interactions, XTitle="Retweeted", YTitle="Favourited")
-
 open MathNet.Numerics.Statistics
-Array.map (fun (x,y) -> float x, float y) interactions
+
+interactions
+|> Array.map (fun (r,f) -> float r, float f)
 |> Array.unzip
 |> Correlation.Pearson
 
-
+open FSharp.Charting
+interactions |> Chart.Point
 
 // Downloading the data
 // ==================================================
+
+let user = "fsharporg"
 
 let friends = twitter.Connections.FriendsIds(screenName="@" + user) 
 let followers = twitter.Connections.FollowerIds(screenName="@" + user)
 
 //
-friends.Ids |> Seq.length
-followers.Ids |> Seq.length
+friends.Ids.Length
+followers.Ids.Length
 
 // Create a set of accounts 
-let idsOfInterest = Seq.append friends.Ids followers.Ids |> set
+let idsOfInterest = Seq.append friends.Ids followers.Ids 
+                    |> set
 printfn "Size of ego network: %d" idsOfInterest.Count
 
 // Twitter screen names from user ID numbers 
@@ -133,7 +136,7 @@ let twitterConnections (ids:int64 seq) =
                 |> Array.filter isInNetwork 
             with _ -> 
                 // accounts with hidden list of friends and followers etc
-                printfn "*****" srcId
+                printfn "***** %A" srcId
                 [||]      
         // return source and target
         yield! connections |> Seq.map (fun tgtId -> srcId, tgtId)|]

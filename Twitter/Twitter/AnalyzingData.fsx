@@ -19,16 +19,17 @@ open System.Collections.Generic
 // Loading JSON data with type providers
 // ===================================================
 
+// Use correct location of network JSON files
 let twitterHandle = "fsharporg"
 let nodeFile = @"C:\Temp\Twitter\networks\" + twitterHandle + "Nodes_22-11-2014.json"
 let linkFile = @"C:\Temp\Twitter\networks\" + twitterHandle + "Links_22-11-2014.json"
 
 type Users = JsonProvider<"{\"nodes\": [{\"name\": \"screenname\",\"id\": 123245623993}]}">
 let userNames = Users.Load nodeFile
-userNames.Nodes.Length
+
 
 //
-userNames.Nodes.[0].Name
+for n in userNames.Nodes do printfn "%s" n.Name
 
 
 type Connections = JsonProvider<"{\"links\":[{\"source\": 3,\"target\": 765}]}">
@@ -70,7 +71,8 @@ idxToIdName (nameToIdx "dsyme")
 // Read links in the network into an adjacency matrix
 let nodeCount = userNames.Nodes.Length
 let links = 
-    seq { for link in userLinks.Links -> link.Source, link.Target, 1.0 }
+    seq { for link in userLinks.Links -> 
+            link.Source, link.Target, 1.0 }
     |> SparseMatrix.ofSeqi nodeCount nodeCount
 
 // Out-degree and in-degree
@@ -220,6 +222,12 @@ pageRankValues
 |> topUsers 100
 |> Seq.iteri (fun i (id, name, value) ->
     printfn "%d. @%s has PageRank %f" (i+1) name value)    
+
+pageRankValues
+|> topUsers 10
+|> Seq.iteri (fun i (id, name, value) ->
+    printfn "%s " name)    
+
 
 // Plot PageRank distribution
 R.hist(pageRankValues,100)

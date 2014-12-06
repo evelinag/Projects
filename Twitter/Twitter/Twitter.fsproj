@@ -58,6 +58,7 @@
     <None Include="packages.config" />
     <Compile Include="DownloadingData.fsx" />
     <None Include="AnalyzingData.fsx" />
+    <None Include="SpectralClustering.fsx" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Deedle">
