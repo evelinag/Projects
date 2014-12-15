@@ -50,7 +50,7 @@ let alphabet = " abcdefghijklmnopqrstuvwxyz"
 let letterPairs =
     [| for a in alphabet do 
         for b in alphabet do
-            if a <> ' ' && b <> ' ' then yield [|a; b|] |]
+            if a <> ' ' || b <> ' ' then yield [|a; b|] |]
 
 // Extract bigram counts from a specific book
 let bookBigrams filename =
