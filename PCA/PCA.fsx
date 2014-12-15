@@ -46,6 +46,9 @@ let loadBook filename =
 
 // =======================================
 // Create a vector of all letter pairs
+
+// This code differs from the one published in the corresponding blog post.
+// The following generates all pairs of letters and spaces.
 let alphabet = " abcdefghijklmnopqrstuvwxyz"
 let letterPairs =
     [| for a in alphabet do 
