@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <!-- 
+      The Analysing data with FsLab Journal parameters will be replaced with the 
+      document title extracted from the <h1> element or
+      file name, if there is no <h1> heading
+    -->
+    <title>Analysing data with FsLab Journal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="http://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type='text/javascript' src='https://www.google.com/jsapi'></script>
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="styles/style.css" />
+    <link type="text/css" rel="stylesheet" href="styles/deedle.css" />
+    <script src="styles/tips.js" type="text/javascript"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://fslab.org">fslab.org</a></li>
+          <li><a href="http://bluemountaincapital.github.io/Deedle">Deedle</a></li>
+          <li><a href="http://bluemountaincapital.github.io/FSharpRProvider">R Provider</a></li>
+          <li><a href="http://fsharp.github.io/FSharp.Data/">F# Data</a></li>
+          <li><a href="http://fsharp.github.io/FSharp.Charting/">F# Charting</a></li>
+          <li><a href="http://numerics.mathdotnet.com/docs/">Math.NET</a></li>
+        </ul>
+        <h3 class="muted">FsLab Journal</h3>
+      </div>
+      <hr />
+      <div class="row" style="margin-top:30px">
+        <div class="span1"></div>
+        <div class="span10" id="main">
+          <h1>Analysing data with FsLab Journal</h1>
+
+<p>Example of using various type providers to analyse clinical and
+genomic datasets.</p>
+
+<h2>Looking at clinical data</h2>
+
+<p>We extract clinical data from Table 1 of Supplementary material,
+<a href="http://www.nature.com/nature/journal/v490/n7418/full/nature11412.html">Comprehensive molecular portraits of human breast tumours</a>.
+We can look some simple statistics about the data.</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs12', 18)" onmouseover="showTip(event, 'fs12', 18)" class="i">ClinicalInfo</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs13', 19)" onmouseover="showTip(event, 'fs13', 19)" class="i">CsvProvider</span><span class="o">&lt;</span><span class="s">&quot;</span><span class="s">C</span><span class="s">:</span><span class="s">/</span><span class="s">Users</span><span class="s">/</span><span class="s">Evelina</span><span class="s">/</span><span class="s">OneDrive</span><span class="s">/</span><span class="s">Documents</span><span class="s">/</span><span class="s">Talks</span><span class="s">/</span><span class="s">2015</span><span class="s">-</span><span class="s">02</span><span class="s">-</span><span class="s">Bioinformatics_LambdaDays</span><span class="s">/</span><span class="s">LambdaDays</span><span class="s">/</span><span class="s">data</span><span class="s">/</span><span class="s">Table1Nature</span><span class="s">.</span><span class="s">csv</span><span class="s">&quot;</span><span class="o">&gt;</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs14', 20)" onmouseover="showTip(event, 'fs14', 20)" class="i">clinicalInfo</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs12', 21)" onmouseover="showTip(event, 'fs12', 21)" class="i">ClinicalInfo</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs15', 22)" onmouseover="showTip(event, 'fs15', 22)" class="i">Load</span>(<span onmouseout="hideTip(event, 'fs11', 23)" onmouseover="showTip(event, 'fs11', 23)" class="i">dir</span> <span class="o">+</span> <span class="s">&quot;</span><span class="s">Table1Nature</span><span class="s">.</span><span class="s">csv</span><span class="s">&quot;</span>)</pre>
+</td>
+</tr>
+</table>
+
+<p>We look at the following information:</p>
+
+<ul>
+<li>Number of patients included in the study</li>
+<li>How many patients died during the study</li>
+<li>Average follow-up time</li>
+<li>Gender ratio of patients included in the study</li>
+</ul>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+<span class="l">22: </span>
+<span class="l">23: </span>
+<span class="l">24: </span>
+<span class="l">25: </span>
+<span class="l">26: </span>
+<span class="l">27: </span>
+<span class="l">28: </span>
+<span class="l">29: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs16', 24)" onmouseover="showTip(event, 'fs16', 24)" class="i">totalCount</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs14', 25)" onmouseover="showTip(event, 'fs14', 25)" class="i">clinicalInfo</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs17', 26)" onmouseover="showTip(event, 'fs17', 26)" class="i">Rows</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs18', 27)" onmouseover="showTip(event, 'fs18', 27)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs19', 28)" onmouseover="showTip(event, 'fs19', 28)" class="i">length</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs20', 29)" onmouseover="showTip(event, 'fs20', 29)" class="i">totalDeceasesed</span> <span class="o">=</span> 
+    <span onmouseout="hideTip(event, 'fs14', 30)" onmouseover="showTip(event, 'fs14', 30)" class="i">clinicalInfo</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs17', 31)" onmouseover="showTip(event, 'fs17', 31)" class="i">Rows</span> 
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs18', 32)" onmouseover="showTip(event, 'fs18', 32)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs21', 33)" onmouseover="showTip(event, 'fs21', 33)" class="i">map</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs22', 34)" onmouseover="showTip(event, 'fs22', 34)" class="i">row</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs22', 35)" onmouseover="showTip(event, 'fs22', 35)" class="i">row</span><span class="o">.</span><span class="i">``Vital Status``</span>)
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs18', 36)" onmouseover="showTip(event, 'fs18', 36)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs23', 37)" onmouseover="showTip(event, 'fs23', 37)" class="i">filter</span> ((<span class="o">=</span>) <span class="s">&quot;</span><span class="s">DECEASED</span><span class="s">&quot;</span>)
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs18', 38)" onmouseover="showTip(event, 'fs18', 38)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs19', 39)" onmouseover="showTip(event, 'fs19', 39)" class="i">length</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs24', 40)" onmouseover="showTip(event, 'fs24', 40)" class="i">avgFollowupTime</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs14', 41)" onmouseover="showTip(event, 'fs14', 41)" class="i">clinicalInfo</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs17', 42)" onmouseover="showTip(event, 'fs17', 42)" class="i">Rows</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs18', 43)" onmouseover="showTip(event, 'fs18', 43)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs21', 44)" onmouseover="showTip(event, 'fs21', 44)" class="i">map</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs22', 45)" onmouseover="showTip(event, 'fs22', 45)" class="i">row</span> <span class="k">-&gt;</span> 
+        <span class="k">let</span> <span onmouseout="hideTip(event, 'fs25', 46)" onmouseover="showTip(event, 'fs25', 46)" class="i">daysToDeath</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs22', 47)" onmouseover="showTip(event, 'fs22', 47)" class="i">row</span><span class="o">.</span><span class="i">``Days to date of Death``</span>
+        <span class="k">if</span> <span onmouseout="hideTip(event, 'fs26', 48)" onmouseover="showTip(event, 'fs26', 48)" class="i">Double</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs27', 49)" onmouseover="showTip(event, 'fs27', 49)" class="i">IsNaN</span> <span onmouseout="hideTip(event, 'fs25', 50)" onmouseover="showTip(event, 'fs25', 50)" class="i">daysToDeath</span>
+        <span class="k">then</span> 
+            <span class="k">try</span> <span onmouseout="hideTip(event, 'fs26', 51)" onmouseover="showTip(event, 'fs26', 51)" class="i">Double</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs28', 52)" onmouseover="showTip(event, 'fs28', 52)" class="i">Parse</span>(<span onmouseout="hideTip(event, 'fs22', 53)" onmouseover="showTip(event, 'fs22', 53)" class="i">row</span><span class="o">.</span><span class="i">``Days to Date of Last Contact``</span>)
+            <span class="k">with</span> _ <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs26', 54)" onmouseover="showTip(event, 'fs26', 54)" class="i">Double</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs29', 55)" onmouseover="showTip(event, 'fs29', 55)" class="i">NaN</span>
+        <span class="k">else</span> <span onmouseout="hideTip(event, 'fs25', 56)" onmouseover="showTip(event, 'fs25', 56)" class="i">daysToDeath</span>)
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs18', 57)" onmouseover="showTip(event, 'fs18', 57)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs23', 58)" onmouseover="showTip(event, 'fs23', 58)" class="i">filter</span> (<span onmouseout="hideTip(event, 'fs26', 59)" onmouseover="showTip(event, 'fs26', 59)" class="i">Double</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs27', 60)" onmouseover="showTip(event, 'fs27', 60)" class="i">IsNaN</span> <span class="o">&gt;</span><span class="o">&gt;</span> <span onmouseout="hideTip(event, 'fs30', 61)" onmouseover="showTip(event, 'fs30', 61)" class="i">not</span>)
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs18', 62)" onmouseover="showTip(event, 'fs18', 62)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs31', 63)" onmouseover="showTip(event, 'fs31', 63)" class="i">average</span>
+
+<span class="c">// are there any men with breast cancer?</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs32', 64)" onmouseover="showTip(event, 'fs32', 64)" class="i">genderRatio</span> <span class="o">=</span> 
+    <span onmouseout="hideTip(event, 'fs14', 65)" onmouseover="showTip(event, 'fs14', 65)" class="i">clinicalInfo</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs17', 66)" onmouseover="showTip(event, 'fs17', 66)" class="i">Rows</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs18', 67)" onmouseover="showTip(event, 'fs18', 67)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs23', 68)" onmouseover="showTip(event, 'fs23', 68)" class="i">filter</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs22', 69)" onmouseover="showTip(event, 'fs22', 69)" class="i">row</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs22', 70)" onmouseover="showTip(event, 'fs22', 70)" class="i">row</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs33', 71)" onmouseover="showTip(event, 'fs33', 71)" class="i">Gender</span> <span class="o">=</span> <span class="s">&quot;</span><span class="s">MALE</span><span class="s">&quot;</span>)
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs18', 72)" onmouseover="showTip(event, 'fs18', 72)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs19', 73)" onmouseover="showTip(event, 'fs19', 73)" class="i">length</span>
+
+<span onmouseout="hideTip(event, 'fs34', 74)" onmouseover="showTip(event, 'fs34', 74)" class="i">printfn</span> <span class="s">&quot;</span><span class="s">Number</span><span class="s"> </span><span class="s">of</span><span class="s"> </span><span class="s">patients</span><span class="s"> </span><span class="s">in</span><span class="s"> </span><span class="s">the</span><span class="s"> </span><span class="s">study</span><span class="s">:</span><span class="s">\t</span><span class="s"> </span><span class="s">%</span><span class="s">d</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs16', 75)" onmouseover="showTip(event, 'fs16', 75)" class="i">totalCount</span>
+<span onmouseout="hideTip(event, 'fs34', 76)" onmouseover="showTip(event, 'fs34', 76)" class="i">printfn</span> <span class="s">&quot;</span><span class="s">Number</span><span class="s"> </span><span class="s">of</span><span class="s"> </span><span class="s">deceased</span><span class="s"> </span><span class="s">patients</span><span class="s">:</span><span class="s">\t</span><span class="s">\t</span><span class="s"> </span><span class="s">%</span><span class="s">d</span><span class="s"> </span><span class="s">(</span><span class="s">%</span><span class="s">.</span><span class="s">1</span><span class="s">f</span><span class="s">)</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs20', 77)" onmouseover="showTip(event, 'fs20', 77)" class="i">totalDeceasesed</span> (<span onmouseout="hideTip(event, 'fs35', 78)" onmouseover="showTip(event, 'fs35', 78)" class="i">float</span> <span onmouseout="hideTip(event, 'fs20', 79)" onmouseover="showTip(event, 'fs20', 79)" class="i">totalDeceasesed</span><span class="o">/</span> <span onmouseout="hideTip(event, 'fs35', 80)" onmouseover="showTip(event, 'fs35', 80)" class="i">float</span> <span onmouseout="hideTip(event, 'fs16', 81)" onmouseover="showTip(event, 'fs16', 81)" class="i">totalCount</span> <span class="o">*</span> <span class="n">100.0</span>)
+<span onmouseout="hideTip(event, 'fs34', 82)" onmouseover="showTip(event, 'fs34', 82)" class="i">printfn</span> <span class="s">&quot;</span><span class="s">Number</span><span class="s"> </span><span class="s">of</span><span class="s"> </span><span class="s">men</span><span class="s"> </span><span class="s">included</span><span class="s"> </span><span class="s">in</span><span class="s"> </span><span class="s">the</span><span class="s"> </span><span class="s">study</span><span class="s">:</span><span class="s">\t</span><span class="s"> </span><span class="s">%</span><span class="s">d</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs32', 83)" onmouseover="showTip(event, 'fs32', 83)" class="i">genderRatio</span>
+<span onmouseout="hideTip(event, 'fs34', 84)" onmouseover="showTip(event, 'fs34', 84)" class="i">printfn</span> <span class="s">&quot;</span><span class="s">Average</span><span class="s"> </span><span class="s">follow</span><span class="s">-</span><span class="s">up</span><span class="s"> </span><span class="s">time</span><span class="s">:</span><span class="s">\t</span><span class="s">\t</span><span class="s">\t</span><span class="s"> </span><span class="s">%</span><span class="s">.</span><span class="s">1</span><span class="s">f</span><span class="s"> </span><span class="s">years</span><span class="s">&quot;</span> (<span onmouseout="hideTip(event, 'fs24', 85)" onmouseover="showTip(event, 'fs24', 85)" class="i">avgFollowupTime</span><span class="o">/</span><span class="n">365.0</span>)</pre>
+</td>
+</tr>
+</table>
+
+<table class="pre"><tr><td><pre><code>Number of patients in the study:	 825
+Number of deceased patients:		 93 (11.3)
+Number of men included in the study:	 8
+Average follow-up time:			 2.5 years</code></pre></td></tr></table>
+
+<p>We can also look at the age distribution of the patients. The clinical data
+contain information on the age of initial diagnosis. We plot the distribution
+using <code>RProvider</code> and <code>ggplot2</code>.</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="c">// open X11 on a Mac</span>
+<span class="c">// R.x11()  </span>
+
+<span onmouseout="hideTip(event, 'fs14', 86)" onmouseover="showTip(event, 'fs14', 86)" class="i">clinicalInfo</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs17', 87)" onmouseover="showTip(event, 'fs17', 87)" class="i">Rows</span>
+<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs18', 88)" onmouseover="showTip(event, 'fs18', 88)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs21', 89)" onmouseover="showTip(event, 'fs21', 89)" class="i">map</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs22', 90)" onmouseover="showTip(event, 'fs22', 90)" class="i">row</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs22', 91)" onmouseover="showTip(event, 'fs22', 91)" class="i">row</span><span class="o">.</span><span class="i">``Age at Initial Pathologic Diagnosis``</span>)
+<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs36', 92)" onmouseover="showTip(event, 'fs36', 92)" class="i">R</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs37', 93)" onmouseover="showTip(event, 'fs37', 93)" class="i">qplot</span>
+<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs38', 94)" onmouseover="showTip(event, 'fs38', 94)" class="i">R</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs39', 95)" onmouseover="showTip(event, 'fs39', 95)" class="i">print</span></pre>
+</td>
+</tr>
+</table>
+
+<table class="pre"><tr><td><pre><code>stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.</code></pre></td></tr></table>
+
+<p><img src="./images/chart1.png" alt="" /></p>
+
+<h2>Survival analysis</h2>
+
+<p>Package <code>survival</code> in R provides mathematical methods for studying survival distributions.
+We can easily create plots that show Kaplan-Meier survival curves.</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+<span class="l">22: </span>
+<span class="l">23: </span>
+<span class="l">24: </span>
+<span class="l">25: </span>
+<span class="l">26: </span>
+<span class="l">27: </span>
+<span class="l">28: </span>
+<span class="l">29: </span>
+<span class="l">30: </span>
+<span class="l">31: </span>
+<span class="l">32: </span>
+<span class="l">33: </span>
+<span class="l">34: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="c">// extract clinical information</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs40', 96)" onmouseover="showTip(event, 'fs40', 96)" class="i">survivalEvent</span>, <span onmouseout="hideTip(event, 'fs41', 97)" onmouseover="showTip(event, 'fs41', 97)" class="i">survivalTime</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs14', 98)" onmouseover="showTip(event, 'fs14', 98)" class="i">clinicalInfo</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs17', 99)" onmouseover="showTip(event, 'fs17', 99)" class="i">Rows</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs18', 100)" onmouseover="showTip(event, 'fs18', 100)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs21', 101)" onmouseover="showTip(event, 'fs21', 101)" class="i">map</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs22', 102)" onmouseover="showTip(event, 'fs22', 102)" class="i">row</span> <span class="k">-&gt;</span> 
+        <span class="k">let</span> <span onmouseout="hideTip(event, 'fs42', 103)" onmouseover="showTip(event, 'fs42', 103)" class="i">event</span> <span class="o">=</span> <span class="k">if</span> <span onmouseout="hideTip(event, 'fs22', 104)" onmouseover="showTip(event, 'fs22', 104)" class="i">row</span><span class="o">.</span><span class="i">``Vital Status``</span> <span class="o">=</span> <span class="s">&quot;</span><span class="s">DECEASED</span><span class="s">&quot;</span> <span class="k">then</span> <span class="n">1</span> <span class="k">else</span> <span class="n">0</span>
+        <span class="k">let</span> <span onmouseout="hideTip(event, 'fs43', 105)" onmouseover="showTip(event, 'fs43', 105)" class="i">time</span> <span class="o">=</span> 
+            <span class="k">let</span> <span onmouseout="hideTip(event, 'fs25', 106)" onmouseover="showTip(event, 'fs25', 106)" class="i">daysToDeath</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs22', 107)" onmouseover="showTip(event, 'fs22', 107)" class="i">row</span><span class="o">.</span><span class="i">``Days to date of Death``</span>
+            <span class="k">if</span> <span onmouseout="hideTip(event, 'fs26', 108)" onmouseover="showTip(event, 'fs26', 108)" class="i">Double</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs27', 109)" onmouseover="showTip(event, 'fs27', 109)" class="i">IsNaN</span> <span onmouseout="hideTip(event, 'fs25', 110)" onmouseover="showTip(event, 'fs25', 110)" class="i">daysToDeath</span>
+            <span class="k">then</span> 
+                <span class="k">try</span> <span onmouseout="hideTip(event, 'fs26', 111)" onmouseover="showTip(event, 'fs26', 111)" class="i">Double</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs28', 112)" onmouseover="showTip(event, 'fs28', 112)" class="i">Parse</span>(<span onmouseout="hideTip(event, 'fs22', 113)" onmouseover="showTip(event, 'fs22', 113)" class="i">row</span><span class="o">.</span><span class="i">``Days to Date of Last Contact``</span>)
+                <span class="k">with</span> _ <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs26', 114)" onmouseover="showTip(event, 'fs26', 114)" class="i">Double</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs29', 115)" onmouseover="showTip(event, 'fs29', 115)" class="i">NaN</span>
+            <span class="k">else</span> <span onmouseout="hideTip(event, 'fs25', 116)" onmouseover="showTip(event, 'fs25', 116)" class="i">daysToDeath</span>
+        <span onmouseout="hideTip(event, 'fs42', 117)" onmouseover="showTip(event, 'fs42', 117)" class="i">event</span>, <span onmouseout="hideTip(event, 'fs43', 118)" onmouseover="showTip(event, 'fs43', 118)" class="i">time</span>)
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs18', 119)" onmouseover="showTip(event, 'fs18', 119)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs23', 120)" onmouseover="showTip(event, 'fs23', 120)" class="i">filter</span> (<span onmouseout="hideTip(event, 'fs44', 121)" onmouseover="showTip(event, 'fs44', 121)" class="i">snd</span> <span class="o">&gt;</span><span class="o">&gt;</span> <span onmouseout="hideTip(event, 'fs26', 122)" onmouseover="showTip(event, 'fs26', 122)" class="i">Double</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs27', 123)" onmouseover="showTip(event, 'fs27', 123)" class="i">IsNaN</span> <span class="o">&gt;</span><span class="o">&gt;</span> <span onmouseout="hideTip(event, 'fs30', 124)" onmouseover="showTip(event, 'fs30', 124)" class="i">not</span>)
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs18', 125)" onmouseover="showTip(event, 'fs18', 125)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs45', 126)" onmouseover="showTip(event, 'fs45', 126)" class="i">toArray</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs46', 127)" onmouseover="showTip(event, 'fs46', 127)" class="i">Array</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs47', 128)" onmouseover="showTip(event, 'fs47', 128)" class="i">unzip</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs48', 129)" onmouseover="showTip(event, 'fs48', 129)" class="i">survivalData</span> <span class="o">=</span> 
+    <span onmouseout="hideTip(event, 'fs49', 130)" onmouseover="showTip(event, 'fs49', 130)" class="i">namedParams</span> [
+        <span class="s">&quot;</span><span class="s">time</span><span class="s">&quot;</span>, <span onmouseout="hideTip(event, 'fs50', 131)" onmouseover="showTip(event, 'fs50', 131)" class="i">box</span> <span onmouseout="hideTip(event, 'fs41', 132)" onmouseover="showTip(event, 'fs41', 132)" class="i">survivalTime</span>;
+        <span class="s">&quot;</span><span class="s">status</span><span class="s">&quot;</span>, <span onmouseout="hideTip(event, 'fs50', 133)" onmouseover="showTip(event, 'fs50', 133)" class="i">box</span> <span onmouseout="hideTip(event, 'fs40', 134)" onmouseover="showTip(event, 'fs40', 134)" class="i">survivalEvent</span> ]
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs38', 135)" onmouseover="showTip(event, 'fs38', 135)" class="i">R</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs51', 136)" onmouseover="showTip(event, 'fs51', 136)" class="i">data_frame</span>
+
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs3', 137)" onmouseover="showTip(event, 'fs3', 137)" class="i">RProvider</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs52', 138)" onmouseover="showTip(event, 'fs52', 138)" class="i">survival</span>
+
+<span class="c">// Plot survival curves</span>
+<span onmouseout="hideTip(event, 'fs38', 139)" onmouseover="showTip(event, 'fs38', 139)" class="i">R</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs53', 140)" onmouseover="showTip(event, 'fs53', 140)" class="i">eval</span>(<span onmouseout="hideTip(event, 'fs38', 141)" onmouseover="showTip(event, 'fs38', 141)" class="i">R</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs54', 142)" onmouseover="showTip(event, 'fs54', 142)" class="i">parse</span>(<span class="i">text</span><span class="o">=</span><span class="s">&quot;</span><span class="s">library</span><span class="s">(</span><span class="s">survival</span><span class="s">)</span><span class="s">&quot;</span>))
+<span onmouseout="hideTip(event, 'fs38', 143)" onmouseover="showTip(event, 'fs38', 143)" class="i">R</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs55', 144)" onmouseover="showTip(event, 'fs55', 144)" class="i">assign</span>(<span class="s">&quot;</span><span class="s">s</span><span class="s">&quot;</span>, <span onmouseout="hideTip(event, 'fs48', 145)" onmouseover="showTip(event, 'fs48', 145)" class="i">survivalData</span>)
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs56', 146)" onmouseover="showTip(event, 'fs56', 146)" class="i">survivalFit</span> <span class="o">=</span> 
+    <span onmouseout="hideTip(event, 'fs38', 147)" onmouseover="showTip(event, 'fs38', 147)" class="i">R</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs53', 148)" onmouseover="showTip(event, 'fs53', 148)" class="i">eval</span>(<span onmouseout="hideTip(event, 'fs38', 149)" onmouseover="showTip(event, 'fs38', 149)" class="i">R</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs54', 150)" onmouseover="showTip(event, 'fs54', 150)" class="i">parse</span>(<span class="i">text</span><span class="o">=</span><span class="s">&quot;</span><span class="s">survfit</span><span class="s">(</span><span class="s">formula</span><span class="s"> </span><span class="s">=</span><span class="s"> </span><span class="s">Surv</span><span class="s">(</span><span class="s">time</span><span class="s">,</span><span class="s"> </span><span class="s">status</span><span class="s">)</span><span class="s"> </span><span class="s">~</span><span class="s"> </span><span class="s">1</span><span class="s">,</span><span class="s"> </span><span class="s">data</span><span class="s"> </span><span class="s">=</span><span class="s"> </span><span class="s">s</span><span class="s">)</span><span class="s">&quot;</span>))
+
+
+<span class="c">//R.x11()</span>
+<span onmouseout="hideTip(event, 'fs57', 151)" onmouseover="showTip(event, 'fs57', 151)" class="i">R</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs58', 152)" onmouseover="showTip(event, 'fs58', 152)" class="i">plot</span>(<span onmouseout="hideTip(event, 'fs56', 153)" onmouseover="showTip(event, 'fs56', 153)" class="i">survivalFit</span>)</pre>
+</td>
+</tr>
+</table>
+
+<p><img src="./images/chart2.png" alt="" /></p>
+
+<h2>Accessing genomic data</h2>
+
+<p>Here we access genomic data from the METABRIC study. Table 30 contains information
+on gene association with copy number variants.</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+<span class="l">8: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs59', 154)" onmouseover="showTip(event, 'fs59', 154)" class="i">Metabric</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs13', 155)" onmouseover="showTip(event, 'fs13', 155)" class="i">CsvProvider</span><span class="o">&lt;</span><span class="s">&quot;</span><span class="s">C</span><span class="s">:</span><span class="s">/</span><span class="s">Temp</span><span class="s">/</span><span class="s">data</span><span class="s">/</span><span class="s">metabric</span><span class="s">-</span><span class="s">genes</span><span class="s">-</span><span class="s">sample</span><span class="s">.</span><span class="s">csv</span><span class="s">&quot;</span><span class="o">&gt;</span>
+
+<span class="c">// Read in table 30</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs60', 156)" onmouseover="showTip(event, 'fs60', 156)" class="i">geneData</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs59', 157)" onmouseover="showTip(event, 'fs59', 157)" class="i">Metabric</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs15', 158)" onmouseover="showTip(event, 'fs15', 158)" class="i">Load</span>(<span onmouseout="hideTip(event, 'fs11', 159)" onmouseover="showTip(event, 'fs11', 159)" class="i">dir</span> <span class="o">+</span> <span class="s">&quot;</span><span class="s">table_S30</span><span class="s">.</span><span class="s">csv</span><span class="s">&quot;</span>)
+
+<span onmouseout="hideTip(event, 'fs60', 160)" onmouseover="showTip(event, 'fs60', 160)" class="i">geneData</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs17', 161)" onmouseover="showTip(event, 'fs17', 161)" class="i">Rows</span>
+<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs18', 162)" onmouseover="showTip(event, 'fs18', 162)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs19', 163)" onmouseover="showTip(event, 'fs19', 163)" class="i">length</span>
+<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs34', 164)" onmouseover="showTip(event, 'fs34', 164)" class="i">printfn</span> <span class="s">&quot;</span><span class="s">Number</span><span class="s"> </span><span class="s">of</span><span class="s"> </span><span class="s">genes</span><span class="s">:</span><span class="s"> </span><span class="s">%</span><span class="s">d</span><span class="s">&quot;</span></pre>
+</td>
+</tr>
+</table>
+
+<table class="pre"><tr><td><pre><code>Number of genes: 30566</code></pre></td></tr></table>
+
+<p>The table contains IDs and descriptions of genes included in the analysis.</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="c">// Look at gene names</span>
+<span onmouseout="hideTip(event, 'fs60', 165)" onmouseover="showTip(event, 'fs60', 165)" class="i">geneData</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs17', 166)" onmouseover="showTip(event, 'fs17', 166)" class="i">Rows</span>
+<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs18', 167)" onmouseover="showTip(event, 'fs18', 167)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs61', 168)" onmouseover="showTip(event, 'fs61', 168)" class="i">take</span> <span class="n">10</span>
+<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs18', 169)" onmouseover="showTip(event, 'fs18', 169)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs62', 170)" onmouseover="showTip(event, 'fs62', 170)" class="i">iter</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs22', 171)" onmouseover="showTip(event, 'fs22', 171)" class="i">row</span> <span class="k">-&gt;</span> 
+    <span onmouseout="hideTip(event, 'fs34', 172)" onmouseover="showTip(event, 'fs34', 172)" class="i">printfn</span> <span class="s">&quot;</span><span class="s">%</span><span class="s">A</span><span class="s"> </span><span class="s">%</span><span class="s">A</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs22', 173)" onmouseover="showTip(event, 'fs22', 173)" class="i">row</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs63', 174)" onmouseover="showTip(event, 'fs63', 174)" class="i">Gene</span> <span onmouseout="hideTip(event, 'fs22', 175)" onmouseover="showTip(event, 'fs22', 175)" class="i">row</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs64', 176)" onmouseover="showTip(event, 'fs64', 176)" class="i">Gene_description</span>)</pre>
+</td>
+</tr>
+</table>
+
+<table class="pre"><tr><td><pre><code>"EEF1A1" "Eukaryotic translation elongation factor 1 alpha 1"
+"GAPDH" "Glyceraldehyde-3-phosphate dehydrogenase"
+"SLC35E2" "Solute carrier family 35, member E2"
+"IPO13" "Importin 13"
+"TESSP1" ""
+"AFAP1" "Actin filament associated protein 1"
+"GGTLC1" "Gamma-glutamyltransferase light chain 1"
+"CDT1" "Chromatin licensing and DNA replication factor 1"
+"TRPV1" "Transient receptor potential cation channel, subfamily V, member 1"
+"LOC644150" ""</code></pre></td></tr></table>
+
+<p>The data also list Ensembl gene IDs. We can use these to look individual genes
+up using the Ensembl's <a href="http://rest.ensembl.org/documentation/info/lookup">REST service</a>.
+In the following code section, we look up Ensebml ID of a well known gene
+associated with breast cancer, BRCA2.</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="c">// Look up information on &quot;BRCA2&quot; from Ensembl</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs65', 177)" onmouseover="showTip(event, 'fs65', 177)" class="i">cancerGene</span> <span class="o">=</span> <span class="s">&quot;</span><span class="s">BRCA2</span><span class="s">&quot;</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs66', 178)" onmouseover="showTip(event, 'fs66', 178)" class="i">info</span> <span class="o">=</span> 
+    <span onmouseout="hideTip(event, 'fs60', 179)" onmouseover="showTip(event, 'fs60', 179)" class="i">geneData</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs17', 180)" onmouseover="showTip(event, 'fs17', 180)" class="i">Rows</span> 
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs18', 181)" onmouseover="showTip(event, 'fs18', 181)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs67', 182)" onmouseover="showTip(event, 'fs67', 182)" class="i">find</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs22', 183)" onmouseover="showTip(event, 'fs22', 183)" class="i">row</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs22', 184)" onmouseover="showTip(event, 'fs22', 184)" class="i">row</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs63', 185)" onmouseover="showTip(event, 'fs63', 185)" class="i">Gene</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs68', 186)" onmouseover="showTip(event, 'fs68', 186)" class="i">Contains</span> <span onmouseout="hideTip(event, 'fs65', 187)" onmouseover="showTip(event, 'fs65', 187)" class="i">cancerGene</span>)</pre>
+</td>
+</tr>
+</table>
+
+<p>We use the example JSON document provided by Ensembl to create a JSON type provider.
+Then we can create a query for our gene of interest and load the response with the
+created type provider.</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs69', 188)" onmouseover="showTip(event, 'fs69', 188)" class="i">Ensembl</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs70', 189)" onmouseover="showTip(event, 'fs70', 189)" class="i">JsonProvider</span><span class="o">&lt;</span><span class="s">&quot;</span><span class="s">http</span><span class="s">:</span><span class="s">/</span><span class="s">/</span><span class="s">rest</span><span class="s">.</span><span class="s">ensembl</span><span class="s">.</span><span class="s">org</span><span class="s">/</span><span class="s">lookup</span><span class="s">/</span><span class="s">id</span><span class="s">/</span><span class="s">ENSG00000157764</span><span class="s">?</span><span class="s">content</span><span class="s">-</span><span class="s">type</span><span class="s">=</span><span class="s">application</span><span class="s">/</span><span class="s">json</span><span class="s">;</span><span class="s">expand</span><span class="s">=</span><span class="s">1</span><span class="s">&quot;</span><span class="o">&gt;</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs71', 190)" onmouseover="showTip(event, 'fs71', 190)" class="i">query</span> <span onmouseout="hideTip(event, 'fs72', 191)" onmouseover="showTip(event, 'fs72', 191)" class="i">geneId</span> <span class="o">=</span> 
+    <span class="s">&quot;</span><span class="s">http</span><span class="s">:</span><span class="s">/</span><span class="s">/</span><span class="s">rest</span><span class="s">.</span><span class="s">ensembl</span><span class="s">.</span><span class="s">org</span><span class="s">/</span><span class="s">lookup</span><span class="s">/</span><span class="s">id</span><span class="s">/</span><span class="s">&quot;</span> 
+    <span class="o">+</span> <span onmouseout="hideTip(event, 'fs72', 192)" onmouseover="showTip(event, 'fs72', 192)" class="i">geneId</span> 
+    <span class="o">+</span> <span class="s">&quot;</span><span class="s">?</span><span class="s">content</span><span class="s">-</span><span class="s">type</span><span class="s">=</span><span class="s">application</span><span class="s">/</span><span class="s">json</span><span class="s">;</span><span class="s">expand</span><span class="s">=</span><span class="s">1</span><span class="s">&quot;</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs73', 193)" onmouseover="showTip(event, 'fs73', 193)" class="i">brca2</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs69', 194)" onmouseover="showTip(event, 'fs69', 194)" class="i">Ensembl</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs74', 195)" onmouseover="showTip(event, 'fs74', 195)" class="i">Load</span>(<span onmouseout="hideTip(event, 'fs71', 196)" onmouseover="showTip(event, 'fs71', 196)" class="i">query</span> <span onmouseout="hideTip(event, 'fs66', 197)" onmouseover="showTip(event, 'fs66', 197)" class="i">info</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs75', 198)" onmouseover="showTip(event, 'fs75', 198)" class="i">Ensembl_gene_id</span>)
+
+<span class="c">// Extract information</span>
+<span onmouseout="hideTip(event, 'fs34', 199)" onmouseover="showTip(event, 'fs34', 199)" class="i">printfn</span> <span class="s">&quot;</span><span class="s">Description</span><span class="s">:</span><span class="s"> </span><span class="s">%</span><span class="s">A</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs73', 200)" onmouseover="showTip(event, 'fs73', 200)" class="i">brca2</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs76', 201)" onmouseover="showTip(event, 'fs76', 201)" class="i">Description</span>
+<span onmouseout="hideTip(event, 'fs34', 202)" onmouseover="showTip(event, 'fs34', 202)" class="i">printfn</span> <span class="s">&quot;</span><span class="s">Species</span><span class="s">:</span><span class="s"> </span><span class="s">%</span><span class="s">A</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs73', 203)" onmouseover="showTip(event, 'fs73', 203)" class="i">brca2</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs77', 204)" onmouseover="showTip(event, 'fs77', 204)" class="i">Species</span>
+
+<span onmouseout="hideTip(event, 'fs34', 205)" onmouseover="showTip(event, 'fs34', 205)" class="i">printfn</span> <span class="s">&quot;</span><span class="s">Location</span><span class="s">:</span><span class="s"> </span><span class="s">%</span><span class="s">A</span><span class="s">:</span><span class="s">%</span><span class="s">A</span><span class="s">:</span><span class="s">%</span><span class="s">A</span><span class="s">:</span><span class="s">%</span><span class="s">A</span><span class="s">&quot;</span> 
+    <span onmouseout="hideTip(event, 'fs73', 206)" onmouseover="showTip(event, 'fs73', 206)" class="i">brca2</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs78', 207)" onmouseover="showTip(event, 'fs78', 207)" class="i">SeqRegionName</span>
+    <span onmouseout="hideTip(event, 'fs73', 208)" onmouseover="showTip(event, 'fs73', 208)" class="i">brca2</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs79', 209)" onmouseover="showTip(event, 'fs79', 209)" class="i">Start</span>
+    <span onmouseout="hideTip(event, 'fs73', 210)" onmouseover="showTip(event, 'fs73', 210)" class="i">brca2</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs80', 211)" onmouseover="showTip(event, 'fs80', 211)" class="i">End</span>
+    <span onmouseout="hideTip(event, 'fs73', 212)" onmouseover="showTip(event, 'fs73', 212)" class="i">brca2</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs81', 213)" onmouseover="showTip(event, 'fs81', 213)" class="i">Strand</span></pre>
+</td>
+</tr>
+</table>
+
+<table class="pre"><tr><td><pre><code>Description: "breast cancer 2, early onset [Source:HGNC Symbol;Acc:HGNC:1101]"
+Species: "homo_sapiens"
+Location: 13:32315474:32400266:1</code></pre></td></tr></table>
+
+<div class="tip" id="fs1">namespace FSharp</div>
+<div class="tip" id="fs2">namespace FSharp.Data</div>
+<div class="tip" id="fs3">namespace RProvider</div>
+<div class="tip" id="fs4">namespace RProvider.graphics</div>
+<div class="tip" id="fs5">namespace RProvider.ggplot2</div>
+<div class="tip" id="fs6">namespace RProvider.grDevices</div>
+<div class="tip" id="fs7">namespace System</div>
+<div class="tip" id="fs8">val inMono : bool<br /><br />Full name: Tutorial.inMono</div>
+<div class="tip" id="fs9">type Type =<br />&#160;&#160;inherit MemberInfo<br />&#160;&#160;member Assembly : Assembly<br />&#160;&#160;member AssemblyQualifiedName : string<br />&#160;&#160;member Attributes : TypeAttributes<br />&#160;&#160;member BaseType : Type<br />&#160;&#160;member ContainsGenericParameters : bool<br />&#160;&#160;member DeclaringMethod : MethodBase<br />&#160;&#160;member DeclaringType : Type<br />&#160;&#160;member Equals : o:obj -&gt; bool + 1 overload<br />&#160;&#160;member FindInterfaces : filter:TypeFilter * filterCriteria:obj -&gt; Type[]<br />&#160;&#160;member FindMembers : memberType:MemberTypes * bindingAttr:BindingFlags * filter:MemberFilter * filterCriteria:obj -&gt; MemberInfo[]<br />&#160;&#160;...<br /><br />Full name: System.Type</div>
+<div class="tip" id="fs10">Type.GetType(typeName: string) : Type<br />Type.GetType(typeName: string, throwOnError: bool) : Type<br />Type.GetType(typeName: string, assemblyResolver: Func&lt;Reflection.AssemblyName,Reflection.Assembly&gt;, typeResolver: Func&lt;Reflection.Assembly,string,bool,Type&gt;) : Type<br />Type.GetType(typeName: string, throwOnError: bool, ignoreCase: bool) : Type<br />Type.GetType(typeName: string, assemblyResolver: Func&lt;Reflection.AssemblyName,Reflection.Assembly&gt;, typeResolver: Func&lt;Reflection.Assembly,string,bool,Type&gt;, throwOnError: bool) : Type<br />Type.GetType(typeName: string, assemblyResolver: Func&lt;Reflection.AssemblyName,Reflection.Assembly&gt;, typeResolver: Func&lt;Reflection.Assembly,string,bool,Type&gt;, throwOnError: bool, ignoreCase: bool) : Type</div>
+<div class="tip" id="fs11">val dir : string<br /><br />Full name: Tutorial.dir</div>
+<div class="tip" id="fs12">type ClinicalInfo = CsvProvider&lt;...&gt;<br /><br />Full name: Tutorial.ClinicalInfo</div>
+<div class="tip" id="fs13">type CsvProvider<br /><br />Full name: FSharp.Data.CsvProvider<br /><em><br /><br />&lt;summary&gt;Typed representation of a CSV file.&lt;/summary&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;Sample&#39;&gt;Location of a CSV sample file or a string containing a sample CSV document.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;Separators&#39;&gt;Column delimiter(s). Defaults to `,`.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;InferRows&#39;&gt;Number of rows to use for inference. Defaults to `1000`. If this is zero, all rows are used.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;Schema&#39;&gt;Optional column types, in a comma separated list. Valid types are `int`, `int64`, `bool`, `float`, `decimal`, `date`, `guid`, `string`, `int?`, `int64?`, `bool?`, `float?`, `decimal?`, `date?`, `guid?`, `int option`, `int64 option`, `bool option`, `float option`, `decimal option`, `date option`, `guid option` and `string option`.<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;You can also specify a unit and the name of the column like this: `Name (type&amp;lt;unit&amp;gt;)`, or you can override only the name. If you don&#39;t want to specify all the columns, you can reference the columns by name like this: `ColumnName=type`.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;HasHeaders&#39;&gt;Whether the sample contains the names of the columns as its first line.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;IgnoreErrors&#39;&gt;Whether to ignore rows that have the wrong number of columns or which can&#39;t be parsed using the inferred or specified schema. Otherwise an exception is thrown when these rows are encountered.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;SkipRows&#39;&gt;SKips the first n rows of the CSV file.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;AssumeMissingValues&#39;&gt;When set to true, the type provider will assume all columns can have missing values, even if in the provided sample all values are present. Defaults to false.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;PreferOptionals&#39;&gt;When set to true, inference will prefer to use the option type instead of nullable types, `double.NaN` or `&quot;&quot;` for missing values. Defaults to false.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;Quote&#39;&gt;The quotation mark (for surrounding values containing the delimiter). Defaults to `&quot;`.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;MissingValues&#39;&gt;The set of strings recogized as missing values. Defaults to `NaN,NA,#N/A,:,-,TBA,TBD`.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;CacheRows&#39;&gt;Whether the rows should be caches so they can be iterated multiple times. Defaults to true. Disable for large datasets.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;Culture&#39;&gt;The culture used for parsing numbers and dates. Defaults to the invariant culture.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;Encoding&#39;&gt;The encoding used to read the sample. You can specify either the character set name or the codepage number. Defaults to UTF8 for files, and to ISO-8859-1 the for HTTP requests, unless `charset` is specified in the `Content-Type` response header.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;ResolutionFolder&#39;&gt;A directory that is used when resolving relative file references (at design time and in hosted execution).&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;EmbeddedResource&#39;&gt;When specified, the type provider first attempts to load the sample from the specified resource <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;(e.g. &#39;MyCompany.MyAssembly, resource_name.csv&#39;). This is useful when exposing types generated by the type provider.&lt;/param&gt;</em></div>
+<div class="tip" id="fs14">val clinicalInfo : CsvProvider&lt;...&gt;<br /><br />Full name: Tutorial.clinicalInfo</div>
+<div class="tip" id="fs15">CsvProvider&lt;...&gt;.Load(uri: string) : CsvProvider&lt;...&gt;<br /><em><br /><br />Loads CSV from the specified uri</em><br />CsvProvider&lt;...&gt;.Load(reader: IO.TextReader) : CsvProvider&lt;...&gt;<br /><em><br /><br />Loads CSV from the specified reader</em><br />CsvProvider&lt;...&gt;.Load(stream: IO.Stream) : CsvProvider&lt;...&gt;<br /><em><br /><br />Loads CSV from the specified stream</em></div>
+<div class="tip" id="fs16">val totalCount : int<br /><br />Full name: Tutorial.totalCount</div>
+<div class="tip" id="fs17">property Runtime.CsvFile.Rows: seq&lt;CsvProvider&lt;...&gt;.Row&gt;</div>
+<div class="tip" id="fs18">module Seq<br /><br />from Microsoft.FSharp.Collections</div>
+<div class="tip" id="fs19">val length : source:seq&lt;&#39;T&gt; -&gt; int<br /><br />Full name: Microsoft.FSharp.Collections.Seq.length</div>
+<div class="tip" id="fs20">val totalDeceasesed : int<br /><br />Full name: Tutorial.totalDeceasesed</div>
+<div class="tip" id="fs21">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; source:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;U&gt;<br /><br />Full name: Microsoft.FSharp.Collections.Seq.map</div>
+<div class="tip" id="fs22">val row : CsvProvider&lt;...&gt;.Row</div>
+<div class="tip" id="fs23">val filter : predicate:(&#39;T -&gt; bool) -&gt; source:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Collections.Seq.filter</div>
+<div class="tip" id="fs24">val avgFollowupTime : float<br /><br />Full name: Tutorial.avgFollowupTime</div>
+<div class="tip" id="fs25">val daysToDeath : float</div>
+<div class="tip" id="fs26">type Double =<br />&#160;&#160;struct<br />&#160;&#160;&#160;&#160;member CompareTo : value:obj -&gt; int + 1 overload<br />&#160;&#160;&#160;&#160;member Equals : obj:obj -&gt; bool + 1 overload<br />&#160;&#160;&#160;&#160;member GetHashCode : unit -&gt; int<br />&#160;&#160;&#160;&#160;member GetTypeCode : unit -&gt; TypeCode<br />&#160;&#160;&#160;&#160;member ToString : unit -&gt; string + 3 overloads<br />&#160;&#160;&#160;&#160;static val MinValue : float<br />&#160;&#160;&#160;&#160;static val MaxValue : float<br />&#160;&#160;&#160;&#160;static val Epsilon : float<br />&#160;&#160;&#160;&#160;static val NegativeInfinity : float<br />&#160;&#160;&#160;&#160;static val PositiveInfinity : float<br />&#160;&#160;&#160;&#160;...<br />&#160;&#160;end<br /><br />Full name: System.Double</div>
+<div class="tip" id="fs27">Double.IsNaN(d: float) : bool</div>
+<div class="tip" id="fs28">Double.Parse(s: string) : float<br />Double.Parse(s: string, provider: IFormatProvider) : float<br />Double.Parse(s: string, style: Globalization.NumberStyles) : float<br />Double.Parse(s: string, style: Globalization.NumberStyles, provider: IFormatProvider) : float</div>
+<div class="tip" id="fs29">field float.NaN = NaN</div>
+<div class="tip" id="fs30">val not : value:bool -&gt; bool<br /><br />Full name: Microsoft.FSharp.Core.Operators.not</div>
+<div class="tip" id="fs31">val average : source:seq&lt;&#39;T&gt; -&gt; &#39;T (requires member ( + ) and member DivideByInt and member get_Zero)<br /><br />Full name: Microsoft.FSharp.Collections.Seq.average</div>
+<div class="tip" id="fs32">val genderRatio : int<br /><br />Full name: Tutorial.genderRatio</div>
+<div class="tip" id="fs33">property CsvProvider&lt;...&gt;.Row.Gender: string</div>
+<div class="tip" id="fs34">val printfn : format:Printf.TextWriterFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.printfn</div>
+<div class="tip" id="fs35">Multiple items<br />val float : value:&#39;T -&gt; float (requires member op_Explicit)<br /><br />Full name: Microsoft.FSharp.Core.Operators.float<br /><br />--------------------<br />type float = Double<br /><br />Full name: Microsoft.FSharp.Core.float<br /><br />--------------------<br />type float&lt;&#39;Measure&gt; = float<br /><br />Full name: Microsoft.FSharp.Core.float&lt;_&gt;</div>
+<div class="tip" id="fs36">type R =<br />&#160;&#160;static member %+% : ?e1: obj * ?e2: obj -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;static member %+replace% : ?e1: obj * ?e2: obj -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;static member aes : ?x: obj * ?y: obj * ?___: obj * ?paramArray: obj [] -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;static member aes__all : ?vars: obj -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;static member aes__auto : ?data: obj * ?___: obj * ?paramArray: obj [] -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;static member aes__q : ?x: obj * ?y: obj * ?___: obj * ?paramArray: obj [] -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;static member aes__string : ?x: obj * ?y: obj * ?___: obj * ?paramArray: obj [] -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;static member annotate : ?geom: obj * ?x: obj * ?y: obj * ?xmin: obj * ?xmax: obj * ?ymin: obj * ?ymax: obj * ?___: obj * ?paramArray: obj [] -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;static member annotation__custom : ?grob: obj * ?xmin: obj * ?xmax: obj * ?ymin: obj * ?ymax: obj -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;static member annotation__logticks : ?base: obj * ?sides: obj * ?scaled: obj * ?short: obj * ?mid: obj * ?long: obj * ?colour: obj * ?size: obj * ?linetype: obj * ?alpha: obj * ?color: obj * ?___: obj * ?paramArray: obj [] -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;...<br /><br />Full name: RProvider.ggplot2.R<br /><em><br /><br />An implementation of the grammar of graphics<br />&#160;&#160;&#160;&#160;in R. It combines the advantages of both base and<br />&#160;&#160;&#160;&#160;lattice graphics: conditioning and shared axes are<br />&#160;&#160;&#160;&#160;handled automatically, and you can still build up a<br />&#160;&#160;&#160;&#160;plot step by step from multiple data sources. It also<br />&#160;&#160;&#160;&#160;implements a sophisticated multidimensional<br />&#160;&#160;&#160;&#160;conditioning system and a consistent interface to map<br />&#160;&#160;&#160;&#160;data to aesthetic attributes. See the ggplot2 website<br />&#160;&#160;&#160;&#160;for more information, documentation and examples.</em></div>
+<div class="tip" id="fs37">R.qplot(paramsByName: Collections.Generic.IDictionary&lt;string,obj&gt;) : RDotNet.SymbolicExpression<br />R.qplot(?x: obj, ?y: obj, ?___: obj, ?data: obj, ?facets: obj, ?margins: obj, ?geom: obj, ?stat: obj, ?position: obj, ?xlim: obj, ?ylim: obj, ?log: obj, ?main: obj, ?xlab: obj, ?ylab: obj, ?asp: obj, ?paramArray: obj []) : RDotNet.SymbolicExpression<br /><em><br /><br />Quick plot</em></div>
+<div class="tip" id="fs38">type R =<br />&#160;&#160;static member ! : ?paramArray: obj [] -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;static member != : ?paramArray: obj [] -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;static member !_hexmode : ?a: obj -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;static member !_octmode : ?a: obj -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;static member $ : ?paramArray: obj [] -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;static member $&lt;- : ?paramArray: obj [] -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;static member $&lt;-_data_frame : ?x: obj * ?name: obj * ?value: obj -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;static member $_DLLInfo : ?x: obj * ?name: obj -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;static member $_data_frame : ?x: obj * ?name: obj -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;static member $_package__version : ?x: obj * ?name: obj -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;...<br /><br />Full name: RProvider.base.R<br /><em><br /><br />Base R functions</em></div>
+<div class="tip" id="fs39">Multiple items<br />R.print(paramsByName: Collections.Generic.IDictionary&lt;string,obj&gt;) : RDotNet.SymbolicExpression<br />R.print(?x: obj, ?___: obj, ?paramArray: obj []) : RDotNet.SymbolicExpression<br /><em><br /><br />Print Values</em><br /><br />--------------------<br />R.print(paramsByName: Collections.Generic.IDictionary&lt;string,obj&gt;) : RDotNet.SymbolicExpression<br />R.print(?x: obj, ?___: obj, ?paramArray: obj []) : RDotNet.SymbolicExpression<br /><em><br /><br />Print Values</em></div>
+<div class="tip" id="fs40">val survivalEvent : int []<br /><br />Full name: Tutorial.survivalEvent</div>
+<div class="tip" id="fs41">val survivalTime : float []<br /><br />Full name: Tutorial.survivalTime</div>
+<div class="tip" id="fs42">val event : int</div>
+<div class="tip" id="fs43">val time : float</div>
+<div class="tip" id="fs44">val snd : tuple:(&#39;T1 * &#39;T2) -&gt; &#39;T2<br /><br />Full name: Microsoft.FSharp.Core.Operators.snd</div>
+<div class="tip" id="fs45">val toArray : source:seq&lt;&#39;T&gt; -&gt; &#39;T []<br /><br />Full name: Microsoft.FSharp.Collections.Seq.toArray</div>
+<div class="tip" id="fs46">type Array =<br />&#160;&#160;member Clone : unit -&gt; obj<br />&#160;&#160;member CopyTo : array:Array * index:int -&gt; unit + 1 overload<br />&#160;&#160;member GetEnumerator : unit -&gt; IEnumerator<br />&#160;&#160;member GetLength : dimension:int -&gt; int<br />&#160;&#160;member GetLongLength : dimension:int -&gt; int64<br />&#160;&#160;member GetLowerBound : dimension:int -&gt; int<br />&#160;&#160;member GetUpperBound : dimension:int -&gt; int<br />&#160;&#160;member GetValue : params indices:int[] -&gt; obj + 7 overloads<br />&#160;&#160;member Initialize : unit -&gt; unit<br />&#160;&#160;member IsFixedSize : bool<br />&#160;&#160;...<br /><br />Full name: System.Array</div>
+<div class="tip" id="fs47">val unzip : array:(&#39;T1 * &#39;T2) [] -&gt; &#39;T1 [] * &#39;T2 []<br /><br />Full name: Microsoft.FSharp.Collections.Array.unzip</div>
+<div class="tip" id="fs48">val survivalData : RDotNet.SymbolicExpression<br /><br />Full name: Tutorial.survivalData</div>
+<div class="tip" id="fs49">val namedParams : s:seq&lt;string * &#39;a&gt; -&gt; Collections.Generic.IDictionary&lt;string,obj&gt;<br /><br />Full name: RProvider.Helpers.namedParams</div>
+<div class="tip" id="fs50">val box : value:&#39;T -&gt; obj<br /><br />Full name: Microsoft.FSharp.Core.Operators.box</div>
+<div class="tip" id="fs51">Multiple items<br />R.data_frame(paramsByName: Collections.Generic.IDictionary&lt;string,obj&gt;) : RDotNet.SymbolicExpression<br />R.data_frame(?___: obj, ?row_names: obj, ?check_rows: obj, ?check_names: obj, ?stringsAsFactors: obj, ?paramArray: obj []) : RDotNet.SymbolicExpression<br /><em><br /><br />Data Frames</em><br /><br />--------------------<br />R.data_frame(paramsByName: Collections.Generic.IDictionary&lt;string,obj&gt;) : RDotNet.SymbolicExpression<br />R.data_frame(?___: obj, ?row_names: obj, ?check_rows: obj, ?check_names: obj, ?stringsAsFactors: obj, ?paramArray: obj []) : RDotNet.SymbolicExpression<br /><em><br /><br />Data Frames</em></div>
+<div class="tip" id="fs52">namespace RProvider.survival</div>
+<div class="tip" id="fs53">Multiple items<br />R.eval(paramsByName: Collections.Generic.IDictionary&lt;string,obj&gt;) : RDotNet.SymbolicExpression<br />R.eval(?expr: obj, ?envir: obj, ?enclos: obj) : RDotNet.SymbolicExpression<br /><em><br /><br />Evaluate an (Unevaluated) Expression</em><br /><br />--------------------<br />R.eval(paramsByName: Collections.Generic.IDictionary&lt;string,obj&gt;) : RDotNet.SymbolicExpression<br />R.eval(?expr: obj, ?envir: obj, ?enclos: obj) : RDotNet.SymbolicExpression<br /><em><br /><br />Evaluate an (Unevaluated) Expression</em></div>
+<div class="tip" id="fs54">Multiple items<br />R.parse(paramsByName: Collections.Generic.IDictionary&lt;string,obj&gt;) : RDotNet.SymbolicExpression<br />R.parse(?file: obj, ?n: obj, ?text: obj, ?prompt: obj, ?keep_source: obj, ?srcfile: obj, ?encoding: obj) : RDotNet.SymbolicExpression<br /><em><br /><br />Parse Expressions</em><br /><br />--------------------<br />R.parse(paramsByName: Collections.Generic.IDictionary&lt;string,obj&gt;) : RDotNet.SymbolicExpression<br />R.parse(?file: obj, ?n: obj, ?text: obj, ?prompt: obj, ?keep_source: obj, ?srcfile: obj, ?encoding: obj) : RDotNet.SymbolicExpression<br /><em><br /><br />Parse Expressions</em></div>
+<div class="tip" id="fs55">Multiple items<br />R.assign(paramsByName: Collections.Generic.IDictionary&lt;string,obj&gt;) : RDotNet.SymbolicExpression<br />R.assign(?x: obj, ?value: obj, ?pos: obj, ?envir: obj, ?inherits: obj, ?immediate: obj) : RDotNet.SymbolicExpression<br /><em><br /><br />Assign a Value to a Name</em><br /><br />--------------------<br />R.assign(paramsByName: Collections.Generic.IDictionary&lt;string,obj&gt;) : RDotNet.SymbolicExpression<br />R.assign(?x: obj, ?value: obj, ?pos: obj, ?envir: obj, ?inherits: obj, ?immediate: obj) : RDotNet.SymbolicExpression<br /><em><br /><br />Assign a Value to a Name</em></div>
+<div class="tip" id="fs56">val survivalFit : RDotNet.SymbolicExpression<br /><br />Full name: Tutorial.survivalFit</div>
+<div class="tip" id="fs57">type R =<br />&#160;&#160;static member Axis : ?x: obj * ?at: obj * ?___: obj * ?side: obj * ?labels: obj * ?paramArray: obj [] -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;static member abline : ?a: obj * ?b: obj * ?h: obj * ?v: obj * ?reg: obj * ?coef: obj * ?untf: obj * ?___: obj * ?paramArray: obj [] -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;static member arrows : ?x0: obj * ?y0: obj * ?x1: obj * ?y1: obj * ?length: obj * ?angle: obj * ?code: obj * ?col: obj * ?lty: obj * ?lwd: obj * ?___: obj * ?paramArray: obj [] -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;static member assocplot : ?x: obj * ?col: obj * ?space: obj * ?main: obj * ?xlab: obj * ?ylab: obj -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;static member axTicks : ?side: obj * ?axp: obj * ?usr: obj * ?log: obj * ?nintLog: obj -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;static member axis : ?side: obj * ?at: obj * ?labels: obj * ?tick: obj * ?line: obj * ?pos: obj * ?outer: obj * ?font: obj * ?lty: obj * ?lwd: obj * ?lwd_ticks: obj * ?col: obj * ?col_ticks: obj * ?hadj: obj * ?padj: obj * ?___: obj * ?paramArray: obj [] -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;static member axis_Date : ?side: obj * ?x: obj * ?at: obj * ?format: obj * ?labels: obj * ?___: obj * ?paramArray: obj [] -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;static member axis_POSIXct : ?side: obj * ?x: obj * ?at: obj * ?format: obj * ?labels: obj * ?___: obj * ?paramArray: obj [] -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;static member barplot : ?height: obj * ?___: obj * ?paramArray: obj [] -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;static member barplot_default : ?height: obj * ?width: obj * ?space: obj * ?names_arg: obj * ?legend_text: obj * ?beside: obj * ?horiz: obj * ?density: obj * ?angle: obj * ?col: obj * ?border: obj * ?main: obj * ?sub: obj * ?xlab: obj * ?ylab: obj * ?xlim: obj * ?ylim: obj * ?xpd: obj * ?log: obj * ?axes: obj * ?axisnames: obj * ?cex_axis: obj * ?cex_names: obj * ?inside: obj * ?plot: obj * ?axis_lty: obj * ?offset: obj * ?add: obj * ?args_legend: obj * ?___: obj * ?paramArray: obj [] -&gt; SymbolicExpression + 1 overload<br />&#160;&#160;...<br /><br />Full name: RProvider.graphics.R<br /><em><br /><br />R functions for base graphics</em></div>
+<div class="tip" id="fs58">R.plot(paramsByName: Collections.Generic.IDictionary&lt;string,obj&gt;) : RDotNet.SymbolicExpression<br />R.plot(?x: obj, ?y: obj, ?___: obj, ?paramArray: obj []) : RDotNet.SymbolicExpression<br /><em><br /><br />Generic X-Y Plotting</em></div>
+<div class="tip" id="fs59">type Metabric = CsvProvider&lt;...&gt;<br /><br />Full name: Tutorial.Metabric</div>
+<div class="tip" id="fs60">val geneData : CsvProvider&lt;...&gt;<br /><br />Full name: Tutorial.geneData</div>
+<div class="tip" id="fs61">val take : count:int -&gt; source:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Collections.Seq.take</div>
+<div class="tip" id="fs62">val iter : action:(&#39;T -&gt; unit) -&gt; source:seq&lt;&#39;T&gt; -&gt; unit<br /><br />Full name: Microsoft.FSharp.Collections.Seq.iter</div>
+<div class="tip" id="fs63">property CsvProvider&lt;...&gt;.Row.Gene: string</div>
+<div class="tip" id="fs64">property CsvProvider&lt;...&gt;.Row.Gene_description: string</div>
+<div class="tip" id="fs65">val cancerGene : string<br /><br />Full name: Tutorial.cancerGene</div>
+<div class="tip" id="fs66">val info : CsvProvider&lt;...&gt;.Row<br /><br />Full name: Tutorial.info</div>
+<div class="tip" id="fs67">val find : predicate:(&#39;T -&gt; bool) -&gt; source:seq&lt;&#39;T&gt; -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Collections.Seq.find</div>
+<div class="tip" id="fs68">String.Contains(value: string) : bool</div>
+<div class="tip" id="fs69">type Ensembl = JsonProvider&lt;...&gt;<br /><br />Full name: Tutorial.Ensembl</div>
+<div class="tip" id="fs70">type JsonProvider<br /><br />Full name: FSharp.Data.JsonProvider<br /><em><br /><br />&lt;summary&gt;Typed representation of a JSON document.&lt;/summary&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;Sample&#39;&gt;Location of a JSON sample file or a string containing a sample JSON document.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;SampleIsList&#39;&gt;If true, sample should be a list of individual samples for the inference.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;RootName&#39;&gt;The name to be used to the root type. Defaults to `Root`.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;Culture&#39;&gt;The culture used for parsing numbers and dates. Defaults to the invariant culture.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;Encoding&#39;&gt;The encoding used to read the sample. You can specify either the character set name or the codepage number. Defaults to UTF8 for files, and to ISO-8859-1 the for HTTP requests, unless `charset` is specified in the `Content-Type` response header.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;ResolutionFolder&#39;&gt;A directory that is used when resolving relative file references (at design time and in hosted execution).&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;EmbeddedResource&#39;&gt;When specified, the type provider first attempts to load the sample from the specified resource <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;(e.g. &#39;MyCompany.MyAssembly, resource_name.json&#39;). This is useful when exposing types generated by the type provider.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;InferTypesFromValues&#39;&gt;If true, turns on additional type inference from values. <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;(e.g. type inference infers string values such as &quot;123&quot; as ints and values constrained to 0 and 1 as booleans.)&lt;/param&gt;</em></div>
+<div class="tip" id="fs71">val query : geneId:string -&gt; string<br /><br />Full name: Tutorial.query</div>
+<div class="tip" id="fs72">val geneId : string</div>
+<div class="tip" id="fs73">val brca2 : JsonProvider&lt;...&gt;.Root<br /><br />Full name: Tutorial.brca2</div>
+<div class="tip" id="fs74">JsonProvider&lt;...&gt;.Load(uri: string) : JsonProvider&lt;...&gt;.Root<br /><em><br /><br />Loads JSON from the specified uri</em><br />JsonProvider&lt;...&gt;.Load(reader: IO.TextReader) : JsonProvider&lt;...&gt;.Root<br /><em><br /><br />Loads JSON from the specified reader</em><br />JsonProvider&lt;...&gt;.Load(stream: IO.Stream) : JsonProvider&lt;...&gt;.Root<br /><em><br /><br />Loads JSON from the specified stream</em></div>
+<div class="tip" id="fs75">property CsvProvider&lt;...&gt;.Row.Ensembl_gene_id: string</div>
+<div class="tip" id="fs76">property JsonProvider&lt;...&gt;.Root.Description: string</div>
+<div class="tip" id="fs77">property JsonProvider&lt;...&gt;.Root.Species: string</div>
+<div class="tip" id="fs78">property JsonProvider&lt;...&gt;.Root.SeqRegionName: int</div>
+<div class="tip" id="fs79">property JsonProvider&lt;...&gt;.Root.Start: int</div>
+<div class="tip" id="fs80">property JsonProvider&lt;...&gt;.Root.End: int</div>
+<div class="tip" id="fs81">property JsonProvider&lt;...&gt;.Root.Strand: int</div>
+
+
+                    
+        </div>
+        <div class="span1"></div>
+      </div>
+      <hr style="margin-top:50px;"/>
+      <footer class="footer" style="text-align:center">
+        Brought to you by the <a href="http://fsharp.org/technical-groups/">F# Data Science working group</a> and <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a>.<br />
+        Submit <a href="https://github.com/tpetricek/FsLab">feedback on GitHub</a> and help us improve FsLab!
+      </footer>
+    </div>
+  </body>
+</html>
